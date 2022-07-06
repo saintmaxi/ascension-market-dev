@@ -1,0 +1,158 @@
+h1 {
+    color: #333333 !important;
+    border-bottom: solid .5vw #333333;
+    padding-bottom: .5vw;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+h2 {
+    padding-top: 1.5vw !important;
+    padding-bottom:1.5vw !important;
+}
+
+#lookup {
+    width: 80%;
+    color: #333333 !important;
+}
+
+#your-wl-spots {
+    font-size: 1.6vw;
+    line-height: 2vw;
+}
+
+#cheeth-allocation {
+    border-top: solid .5vw #333333;
+    padding-top: .5vw;
+}
+
+#wl-section {
+    border-radius: 1vw;
+    background: #f3e3aee0;
+    border: solid .5vw #F1C94B;
+    width: 90%;
+    overflow-y: scroll;
+    margin: auto;
+    text-align: center;
+    padding-top: .5vw;
+    font-size: 1.2vw;
+    line-height: 1.3vw;
+    padding: 1.5vw;
+}
+
+.wl-row {
+    width: 100%;
+    border-radius: .5vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1vw;
+}
+
+.wl-discord, .wl-address {
+    width: 50%;
+}
+
+.wl-discord {
+    text-align: left;
+}
+
+.wl-address {
+    text-align: right;
+}
+
+#wl-section > .wl-row:nth-child(1) {
+    background: #F1C94B !important;
+}
+
+#wl-section > .wl-row:nth-of-type(odd) {
+    background: #f5dd8e;
+
+}
+
+select {
+    text-align: center;
+    font-size: 1.5vw;
+    line-height: 2vw;
+    width: 70%;
+    margin-bottom: 2vw;
+}
+
+#spacer {
+    height: 2vw;
+}
+
+#download-link {
+    width: 5%;
+}
+
+#download-button {
+    width: 3.5%;
+}
+
+@media screen and (max-width: 991px) {
+
+    .wl-row {
+        display: block;
+        padding: 8px;
+        border-radius: 1vw;
+    }
+
+    #discord-header, #address-header {
+        font-size: 2vh;
+        line-height: 2vh;
+    }
+
+    .wl-discord, .wl-address {
+        width: 100%;
+        text-align: center;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    #lookup {
+        width: 97%;
+    }
+
+    #your-wl-spots {
+        font-size: 3.2vh;
+        line-height: 3.4vh;
+    }
+
+    h1 {
+        border-bottom: solid 5px #333333;
+        padding-bottom: 4vh;
+    }
+
+    #cheeth-allocation {
+        border-top: solid 5px #333333;
+        padding-top: 4vh !important;
+    }
+
+    h2 {
+        margin-top: 4vh !important;
+        margin-bottom:4vh !important;
+    }
+
+    #wl-section {
+        width: 100%;
+        border: solid 5px #F1C94B;
+        padding-top:4vh !important;
+        font-size: 2vh;
+        line-height: 2.2vh;
+    }
+
+    select {
+        font-size: 2vh;
+        line-height: 2vh;
+        width: 90%;
+        margin-bottom: 4vh;
+    }
+
+    #spacer {
+        height: 2vh;
+    }
+
+
+}
