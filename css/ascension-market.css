@@ -15,6 +15,10 @@ select {
 	min-width: 35%;
 }
 
+a.active {
+	color: #BF0C00 !important;
+}
+
 #clear-cache {
 	margin-left: .5vw;
 	height: 1.5vw;
@@ -66,8 +70,6 @@ h1 {
 }
 
 p {
-	text-align: justify;
-	font-weight: bold;
 	font-size: 1.4vw !important;
 	line-height: 1.7vw !important;
 }

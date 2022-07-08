@@ -190,12 +190,14 @@
 }
 
 #about-text-desktop-1 {
+    text-align: left;
     border-top: 1px solid white;
     width: 75%;
     margin-right:6%
 }
 
 #about-text-desktop-2 {
+    text-align: left;
     border-top: 1px solid white;
     width: 64%;
     margin-left:6%
@@ -486,7 +488,8 @@
     #about-text-mobile {
         width: 95%;
         margin-left: 2.5%;
-        margin-right:2.5%
+        margin-right:2.5%;
+        text-align: left;
     }
     
     #about-gif {
