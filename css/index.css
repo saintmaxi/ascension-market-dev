@@ -254,6 +254,15 @@
 
 @media screen and (max-width: 991px) {
 
+    #models {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    #models img {
+        width: 100vw;
+    }
+
     .left-number, .right-number {
         display: none;
     }
