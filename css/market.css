@@ -1,6 +1,6 @@
 @font-face {  
-	font-family: 'IBM Plex Mono Regular';
-	src: URL('./IBMPlexMono-Regular.ttf') format('truetype');
+	font-family: 'Syke';
+	src: URL('./Syke-Regular.ttf') format('truetype');
 }  
 
 .token-balance-float {
@@ -18,7 +18,7 @@
 	border-radius: 15px;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     height: 8vh;
-	font-family: "IBM Plex Mono Medium";
+	font-family: "Syke";
   }
 
   #market-section {
@@ -140,14 +140,15 @@
 }
 
 .partner-collection {
-	border-style: solid;
-	border-color: black;
-	border-radius: 15px;
-	border-width: .5vw;
-    width: 24%;
+	/* border-style: solid; */
+	/* border-color: black; */
+	/* border-radius: 15px; */
+	/* border-width: .5vw; */
+    border: solid white 1px;
+    width: 21%;
     margin: 1%;
-    background-color: white;
-    color: #333333 !important;
+    background-color: black;
+    color: white !important;
     text-align: center;
     display: -webkit-box;
     display: -webkit-flex;
@@ -230,7 +231,7 @@
     padding: 2%;
     color: #333333 !important;
     padding-bottom: 10px;
-    font-family: 'IBM Plex Mono Regular', monospace;
+    font-family: 'Syke', monospace;
     font-weight: 200;
 }
 
