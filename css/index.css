@@ -268,7 +268,7 @@
         line-height: 5vh;
         background-color: #100C08;
         margin: 0;
-        padding: 2%;
+        padding: 1%;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }
@@ -282,10 +282,10 @@
     }
 
     #socials {
-        text-align: left;
+        text-align: center;
         display: flex;
         flex-direction: row;
-        align-items: end;
+        align-items: center;
         justify-content: center;
         width: 100%;
     }
@@ -395,14 +395,21 @@
 
     .header-menu {
         font-size: 4vh;
-        line-height: 4vh;
-        text-align: left;
+        line-height: 7.5vh;
+        width: 50%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .header-menu a {
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
 
     #navbar {
         touch-action: manipulation;
         width: 10%;
-        background-color: #F72119 !important;
+        background-color: black !important;
         background-image: url("../images/burger.png");
         background-size: 100% 100%;
     }
@@ -415,7 +422,7 @@
         background-color: #100C08;
         text-align: center;
         padding-top: 5px;
-        padding-bottom: 20px;
+        padding-bottom: 10px;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }
@@ -436,7 +443,16 @@
 
     #about {
         display: block;
-        padding: 15px;
+        padding: 10px;
+        border-bottom: solid white 1px;
+    }
+
+    #about h1 {
+        font-size: 3.5vh !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 15px;
     }
 
     #about p {
@@ -457,7 +473,7 @@
     }
 
     #wc-gif {
-        border-width: 5px;
+        border-width: 1px;
     }
 
     /* end about section styling */

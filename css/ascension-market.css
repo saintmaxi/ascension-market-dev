@@ -448,6 +448,13 @@ h5 {
 
 @media screen and (max-width:991px) {
 
+	#discord-mobile {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+	}
+
 	.token-icon {
 		display: inline;
 		width: 2.8vh !important;
@@ -455,6 +462,11 @@ h5 {
 
 	.box {
 		border-width: 5px;
+	}
+
+	.section {
+		padding-top: 15px;
+		padding-bottom: 15px !important;
 	}
 
 
