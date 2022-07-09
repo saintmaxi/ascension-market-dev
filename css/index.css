@@ -24,14 +24,14 @@
 
 #top  {
     position: fixed;
-    z-index: 999999;
+    z-index: 9999;
     width: 100%;
-    opacity: .95;
+    /* opacity: .95; */
     display: flex;
     flex-direction: row;
     justify-content: center;
     color: white !important;
-    background-color: #100C08;
+    background-color: #100c08ef;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     height: 9vh;

@@ -7,30 +7,42 @@
     position: fixed;
     right: 30px;
     bottom: 30px;
-    font-size: 1.5vw;
+    font-size: 1vw;
     z-index: 10;
     display: flex;
     align-items: center;
     padding: 15px;
     background: white;
     color: black;
-    border: .5vw solid black;
-	border-radius: 15px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    height: 8vh;
+    border: 1px solid white;
+    height: 6vh;
 	font-family: "Syke";
   }
 
   #market-section {
+    padding-top: 9vh !important;
       padding-bottom: calc(1.5vw + 150px) !important;
   }
 
 /* Onboarding section */
 
-#onboarding-alert p {
-    width: 50%;
-    margin: auto;
-    text-align: center;
+#onboarding-section {
+    background-color: #BF0C00;
+    height: 9vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+#onboarding-section p {
+    margin-bottom: 0 !important;
+}
+
+#warning {
+    width: 2vw;
 }
 
 .onboarding-wrapper {
@@ -40,7 +52,7 @@
 }
 
 .onboarding {
-    width: 25%;
+    width: 12%;
     display: inline-block;
     margin: 0;
     margin-top: 1vw;
@@ -51,14 +63,30 @@
     background-color: white;
     color: black;
     display: inline;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-    width: 75%;
-    height: 7vh;
+    width: 90%;
 }
 
 .onboarding h1 {
     margin: 0;
+}
+
+#approval {
+    width: 28%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#approval button {
+    width: 48%;
+    background-color: white !important;
+    color: black !important;
+}
+
+#approval button:hover {
+    background-color: rgb(209, 203, 203) !important;
+    color: black !important;
 }
 
 /* end onboarding section */
@@ -67,22 +95,30 @@
     padding-top: 0;
 }
 
-.active {
-	background-color: #F8E4A9 !important;
-    color: #333333 !important;
+button.active {
+    /* border-bottom: 1px solid white; */
+    color: #BF0C00 !important;
 }
 
 #selector-div {
-    text-align: center;
+    width: 90%;
+    border-bottom: solid 1px white;
+    margin-left: 5%;
+    text-align: left;
 }
 
 #selector-div button {
-    font-size: 2vw;
-    line-height: 2.2vw;
+    font-size: 1.3vw;
+    line-height: 1.5vw;
     padding: .5vw;
-    width: 25%;
-    background-color: white;
+    border-radius: 0;
+    width: 10%;
+    background-color: transparent !important;
     color: black;
+}
+
+#selector-div button:hover {
+    color: #BF0C00 !important;
 }
 
 #live-collections, #past-collections {
@@ -121,8 +157,6 @@
 
 .cover {
     position: absolute;
-	border-width: .5vw;
-	border-radius: 13px;
     top: 50%;
     left: 50%;
     width: 101%;
@@ -190,7 +224,7 @@
 .partner-collection h3 {
     font-size: 1.8vw;
     line-height: 1.8vw;
-    color: #333333 !important;
+    color: white !important;
 }
 
 .partner-collection button {
@@ -213,10 +247,9 @@
 
 .collection-img {
 	border-style: solid;
-	border-color: black;
-	border-radius: 15px;
-	border-width: .5vw;
-    background-color: #333333;
+	border-color: white;
+	border-width: .1px;
+    background-color: black;
     width: 30%;
     width: 200px;
     height: 200px;
@@ -229,7 +262,6 @@
 .collection-description {
     min-height: 20%;
     padding: 2%;
-    color: #333333 !important;
     padding-bottom: 10px;
     font-family: 'Syke', monospace;
     font-weight: 200;
@@ -238,7 +270,7 @@
 h3 {
     font-size: 1.5vw;
     line-height: 1.6vw;
-    color: #333333;
+    color: white;
     margin-top: 1.5vw;
 }
 
@@ -253,7 +285,7 @@ a {
 h4 {
     font-size: 1.4vw;
     line-height: 1.8vw;
-    color: #333333;
+    color: white;
 }
 
 .inside-text {
@@ -460,7 +492,6 @@ h4 {
 #scroll-indicator {
     -webkit-animation: bounce 1.3s infinite;
     animation: bounce 1.3s infinite;
-    color: #333333 !important;
 }
 
 #no-live-msg {
@@ -469,7 +500,7 @@ h4 {
 }
 
 #no-live-msg button {
-    width: 45%;
+    width: 30%;
     margin: auto;
 }
 
@@ -478,7 +509,7 @@ h4 {
     #before-buying {
         font-size: 4.4vh !important;
         line-height: 4.4vh !important;
-        color: #333333;
+        color: white;
     }
 
     #no-live-msg {
@@ -511,7 +542,6 @@ h4 {
         background: white;
         color: black;
         border: 5px solid black;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         height: initial;
       }
 
@@ -551,6 +581,10 @@ h4 {
     /* End onboarding section*/
 
 
+    #selector-div {
+        text-align: center;
+    }
+
     #selector-div button {
         font-size: 3.4vh;
         line-height: 3.4vh;
@@ -574,12 +608,10 @@ h4 {
     }
 
     .partner-collection {
-		border-width: 5px;
         margin-top: 40px;
     }
 
     .collection-img {
-		border-width: 5px;
         width: 200px;
         height: 200px;
         min-width: 0px !important;
@@ -600,7 +632,7 @@ h4 {
     h4 {
         font-size: 3vh;
         line-height: 3.1vh;
-        color: #333333;
+        color: white;
     }
 
     .inside-text {

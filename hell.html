@@ -27,162 +27,153 @@
 </head>
 
 <body class="body">
-   <div id="top">
-      <div id="title-section" class="header">
-         <div id="title">
-            <img src="./images/logo.png">
-            <a href="./index.html" class="title-link">ASCENSION<span class="hide-on-mobile"> MARKET</span></a>
-         </div>
+   <div id="top-wrapper">
+      <div id="onboarding-section" class="hidden" style="text-align: center;">
+         <svg id="warning" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="white" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z"/></svg>
+            <p>To purchase listings, set a Discord ID and approve the market to spend your $SOULS.</p>
+            <div id="approval">
+               <button class="button hidden" id="approval-button" onclick="approveTokenToMarket()">APPROVE MARKET</button>
+               <button class="button hidden" id="set-discord-button" onclick="promptForDiscord()">SET DISCORD</button>
+            </div>
       </div>
-      <div id="header" class="header hide-on-mobile">
-         <div class="header-menu">
-            <a href="./index.html" class="link">
-               HOME
-            </a>
+      <div id="top">
+         <div id="title-section" class="header">
+            <div id="title">
+               <img src="./images/logo.png">
+               <a href="./index.html" class="title-link">ASCENSION<span class="hide-on-mobile"> MARKET</span></a>
+            </div>
          </div>
-         <div class="header-menu">
-            <a href="./heaven.html" class="link">
-               HEAVEN
-            </a>
+         <div id="header" class="header hide-on-mobile">
+            <div class="header-menu">
+               <a href="./index.html" class="link">
+                  HOME
+               </a>
+            </div>
+            <div class="header-menu">
+               <a href="./heaven.html" class="link">
+                  HEAVEN
+               </a>
+            </div>
+            <div class="header-menu">
+               <a href="./hell.html" class="link active">
+                  HELL
+               </a>
+            </div>
+            <div class="header-menu">
+               <a href="./lookup.html" class="link">
+                  LOOKUP
+               </a>
+            </div>
+            <div class="header-menu hidden" id="workshop">
+               <a href="./workshop.html" class="link">
+                  WORKSHOP
+               </a>
+            </div>
          </div>
-         <div class="header-menu">
-            <a href="./hell.html" class="link">
-               HELL
+         <!-- <div class="hide-on-mobile" id="socials">
+            <a href="#" target="_blank" class="link w-inline-block">
+               <img src="images/twitter-black.png" loading="lazy" alt="">
             </a>
-         </div>
-         <div class="header-menu">
-            <a href="./lookup.html" class="link">
-               LOOKUP
+            <a href="#" target="_blank" class="link w-inline-block">
+               <img src="images/dc-white.png" loading="lazy" alt="">
             </a>
-         </div>
-         <div class="header-menu hidden" id="workshop">
-            <a href="./workshop.html" class="link">
-               WORKSHOP
+            <a href="#" target="_blank" class="link w-inline-block">
+               <img src="images/os-transparent.png" loading="lazy" alt="" style="background-color: transparent;border-radius: 50%;">
             </a>
+            <a href="#" target="_blank" class="link w-inline-block">
+               <img src="images/mediumWhite.png" loading="lazy" alt="">
+            </a>
+            <a href="#" target="_blank" class="link w-inline-block">
+               <img class="etherscan" src="images/etherscan-white.png" loading="lazy" alt="" style="border-radius: 50%;">
+            </a>
+         </div> -->
+         <div id="desktop-wallet-connect-div">
+            <button class="button hide-on-mobile clickable" id="account" href="#" onclick=connect()>
+               <span id="account-text">CONNECT</span>
+            </button>
+            <button class="button hide-on-mobile" id="discord" onclick="promptForDiscord()">
+               <img id="discord-img" src="./images/dc-black.png">
+               <span id="discord-text"></span>
+               <img id="edit-img" src="./images/edit.png">
+            </button>
          </div>
-      </div>
-      <!-- <div class="hide-on-mobile" id="socials">
-         <a href="#" target="_blank" class="link w-inline-block">
-            <img src="images/twitter-black.png" loading="lazy" alt="">
-         </a>
-         <a href="#" target="_blank" class="link w-inline-block">
-            <img src="images/dc-white.png" loading="lazy" alt="">
-         </a>
-         <a href="#" target="_blank" class="link w-inline-block">
-            <img src="images/os-transparent.png" loading="lazy" alt="" style="background-color: transparent;border-radius: 50%;">
-         </a>
-         <a href="#" target="_blank" class="link w-inline-block">
-            <img src="images/mediumWhite.png" loading="lazy" alt="">
-         </a>
-         <a href="#" target="_blank" class="link w-inline-block">
-            <img class="etherscan" src="images/etherscan-white.png" loading="lazy" alt="" style="border-radius: 50%;">
-         </a>
-      </div> -->
-      <div id="desktop-wallet-connect-div">
-         <button class="button hide-on-mobile clickable" id="account" href="#" onclick=connect()>
-            <span id="account-text">CONNECT</span>
-         </button>
-         <button class="button hide-on-mobile" id="discord" onclick="promptForDiscord()">
-            <img id="discord-img" src="./images/dc-black.png">
-            <span id="discord-text"></span>
-            <img id="edit-img" src="./images/edit.png">
-         </button>
-      </div>
-      <div id="mobile-wallet-connect-div" class="hide-on-desktop">
-         <button id="mobile-account" href="#" class="button" onclick=connect()>
-            <span id="mobile-account-text">CONNECT</span>
-         </button>
-         <button class="button" id="discord-mobile" onclick="promptForDiscord()">
-            <img id="discord-img" src="./images/dc-black.png">
-            <span id="discord-text-mobile"></span>
-            <img id="edit-img" src="./images/edit.png">
-         </button>
-         <button id="navbar" href="#" class="button" onclick="toggleMenu()"></button>
-      </div>
-      <div id="expand-container">
-         <div id="mobile-nav-menu" class="collapsed">
-            <div id="header" class="header hide-on-desktop">
-               <div class="header-menu">
-                  <a href="./index.html" class="link">
-                     HOME
-                  </a>
+         <div id="mobile-wallet-connect-div" class="hide-on-desktop">
+            <button id="mobile-account" href="#" class="button" onclick=connect()>
+               <span id="mobile-account-text">CONNECT</span>
+            </button>
+            <button class="button" id="discord-mobile" onclick="promptForDiscord()">
+               <img id="discord-img" src="./images/dc-black.png">
+               <span id="discord-text-mobile"></span>
+               <img id="edit-img" src="./images/edit.png">
+            </button>
+            <button id="navbar" href="#" class="button" onclick="toggleMenu()"></button>
+         </div>
+         <div id="expand-container">
+            <div id="mobile-nav-menu" class="collapsed">
+               <div id="header" class="header hide-on-desktop">
+                  <div class="header-menu">
+                     <a href="./index.html" class="link">
+                        HOME
+                     </a>
+                  </div>
+                  <div class="header-menu">
+                     <a href="./heaven.html" class="link">
+                        HEAVEN
+                     </a>
+                  </div>
+                  <div class="header-menu">
+                     <a href="./hell.html" class="link">
+                        HELL
+                     </a>
+                  </div>
+                  <div class="header-menu">
+                     <a href="./lookup.html" class="link">
+                        LOOKUP
+                     </a>
+                  </div>
+                  <div class="header-menu hidden" id="workshop">
+                     <a href="./workshop.html" class="link">
+                        WORKSHOP
+                     </a>
+                  </div>
+                  <!-- <div class="header-menu" style="width: 100%;">
+                     BALANCE: <span id="mobile-balance">-</span> <img src="https://github.com/saintmaxi/cheeth-market/blob/main/images/cheethv2.png?raw=true" class="token-icon">
+                  </div> -->
                </div>
-               <div class="header-menu">
-                  <a href="./heaven.html" class="link">
-                     HEAVEN
-                  </a>
-               </div>
-               <div class="header-menu">
-                  <a href="./hell.html" class="link">
-                     HELL
-                  </a>
-               </div>
-               <div class="header-menu">
-                  <a href="./lookup.html" class="link">
-                     LOOKUP
-                  </a>
-               </div>
-               <div class="header-menu hidden" id="workshop">
-                  <a href="./workshop.html" class="link">
-                     WORKSHOP
-                  </a>
-               </div>
-               <!-- <div class="header-menu" style="width: 100%;">
-                  BALANCE: <span id="mobile-balance">-</span> <img src="https://github.com/saintmaxi/cheeth-market/blob/main/images/cheethv2.png?raw=true" class="token-icon">
+   
+                  <!-- <div class="header-menu">
+                     <a href="#" class="link">
+                        LINK
+                     </a>
+                  </div>
+                  <div class="header-menu">
+                     <a href="#" class="link">
+                        LINK
+                     </a>
+                  </div>
                </div> -->
-            </div>
-
-               <!-- <div class="header-menu">
-                  <a href="#" class="link">
-                     LINK
+               <div class="hide-on-desktop" id="socials">
+                  <a href="https://twitter.com/ascensiont6" target="_blank" class="link w-inline-block">
+                     <img src="images/twitter-black.png" loading="lazy" alt="">
+                  </a>
+                  <a href="https://discord.com/triplesixjewels" target="_blank" class="link w-inline-block">
+                     <img src="images/dc-white.png" loading="lazy" alt="">
+                  </a>
+                  <a href="https://opensea.io/collection/ascensionbyt6" target="_blank" class="link w-inline-block">
+                     <img src="images/os-transparent.png" loading="lazy" alt="" style="background-color: transparent;border-radius: 50%;">
+                  </a>
+                  <a href="https://etherscan.io/address/0xa74d868ce53af34f92b880a0f92f1ad8fc8944d7#code" target="_blank" class="link w-inline-block">
+                     <img class="etherscan" src="images/etherscan-white.png" loading="lazy" alt="" style="border-radius: 50%;">
                   </a>
                </div>
-               <div class="header-menu">
-                  <a href="#" class="link">
-                     LINK
-                  </a>
-               </div>
             </div>
-            <div class="hide-on-desktop" id="socials">
-               <a href="#" target="_blank" class="link w-inline-block">
-                  <img src="images/twitter-black.png" loading="lazy" alt="">
-               </a>
-               <a href="#" target="_blank" class="link w-inline-block">
-                  <img src="images/dc-white.png" loading="lazy" alt="">
-               </a>
-               <a href="#" target="_blank" class="link w-inline-block">
-                  <img src="images/os-transparent.png" loading="lazy" alt="" style="background-color: transparent;border-radius: 50%;">
-               </a>
-               <a href="#" target="_blank" class="link w-inline-block">
-                  <img src="images/mediumWhite.png" loading="lazy" alt="">
-               </a>
-               <a href="#" target="_blank" class="link w-inline-block">
-                  <img class="etherscan" src="images/etherscan-white.png" loading="lazy" alt="" style="border-radius: 50%;">
-               </a>
-            </div> -->
-         </div>
-      </div>
-   </div>
-   <div class="section body-section body-1 wf-section" id="onboarding-section" style="text-align: center;">
-      <div id="onboarding-alert" class="hidden">
-         <h1 id="before-buying">Before Buying...</h1>
-         <p>To purchase listings, set a Discord ID and approve the market to spend your $SOULS.</p>
-      </div>
-      <div class="onboarding-wrapper">
-         <div id="approval" class="onboarding hidden" style="text-align: center;">
-            <h2>APPROVE MARKET</h2>
-            <button class="button" id="approval-button" onclick="approveTokenToMarket()">APPROVE</button>
-         </div>
-         <div id="set-discord" class="onboarding hidden" style="text-align: center;">
-            <h2>SET DISCORD</h2>
-            <button class="button" id="set-discord-button" onclick="promptForDiscord()">SET DISCORD</button>
          </div>
       </div>
    </div>
    <div id="market-section" class="section body-section body-1 wf-section">
       <div id="selector-div">
-         <button id="live-button" class="button active" onclick="showLive()">ACTIVE LISTINGS<span id="num-live"><br>(-)</span></button>
-         <button id="past-button" class="button" onclick="showPast()">PAST LISTINGS<span id="num-past"><br>(-)</span></button>
+         <button id="live-button" class="button active" onclick="showLive()">ACTIVE  <span id="num-live">(-)</span></button>
+         <button id="past-button" class="button" onclick="showPast()">PAST <span id="num-past">(-)</span></button>
       </div>
       <h2 id="scroll-indicator" class="hidden hide-on-mobile" style="text-align: center;color: white;">
          <img class="down-arrow" src="images/down-arrow.png"> SCROLL<span class="hide-on-mobile"> FOR MORE</span> <img class="down-arrow" src="images/down-arrow.png">

@@ -214,10 +214,9 @@ p {
 	touch-action: manipulation;
 	background-color: #BF0C00 !important;
 	color: white !important;
-	font-size: 1.4vw;
+	font-size: 1vw;
 	line-height: 1.7vw;
 	padding: .5vw;
-	border-radius: 5px;
 	font-family: "Syke", monospace;
 	font-weight: bolder;
 }
@@ -310,7 +309,6 @@ h5 {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 33vw;
-	border-radius: 15px;
     text-align: center;
     box-shadow: 0 0 5000px 5000px rgba(0,0,0,0.88);
 }
@@ -501,7 +499,7 @@ h5 {
 		font-size: 2.3vh;
 		line-height: 2.8vh ;	
 		padding: 5px;
-		border-width: 5px;
+		border-width: 1px;
 		min-height: 9vh;
 	}
 

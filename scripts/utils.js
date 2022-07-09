@@ -89,8 +89,8 @@ function clearPendingTxs() {
     $("#past-collections").empty();
     $("#live-collections").append(jsonData.liveJSX);
     $("#past-collections").append(jsonData.pastJSX);
-    $("#num-live").html(`<br>(${jsonData.numLive})`);
-    $("#num-past").html(`<br>(${jsonData.numPast})`);
+    $("#num-live").html(`(${jsonData.numLive})`);
+    $("#num-past").html(`(${jsonData.numPast})`);
     if (jsonData.numLive > 3 && $("#live-button").hasClass("active")) {
         $("#scroll-indicator").removeClass("hidden");
     }
@@ -178,21 +178,26 @@ function clearPendingTxs() {
          let currentDiscord = await identityMapper.addressToDiscord(userAddress);
          if (currentDiscord) {
              discordSet = true
+            $("#set-discord-button").addClass("hidden");
              $("#discord-text").text("SET!");
              $("#discord").addClass("success");
              $("#discord").removeClass("failure");
              $("#discord-text-mobile").text("SET!");
              $("#discord-mobile").addClass("success");
              $("#discord-mobile").removeClass("failure"); 
+             $("#discord-img").attr("src", "./images/dc-black.png");
+             $("#edit-img").attr("src", "./images/edit.png");
          }
          else {
-            $("#set-discord").removeClass("hidden");
+            $("#set-discord-button").removeClass("hidden");
              $("#discord-text").text("NOT SET!");
              $("#discord").addClass("failure");
              $("#discord").removeClass("success"); 
              $("#discord-text-mobile").text("NOT SET!");    
              $("#discord-mobile").addClass("failure"); 
-             $("#discord-mobile").removeClass("success"); 
+             $("#discord-mobile").removeClass("success");
+             $("#discord-img").attr("src", "./images/dc-white.png");
+             $("#edit-img").attr("src", "./images/edit-white.png");
          }
      }
     if ($("#approval").hasClass("hidden") && $("#set-discord").hasClass("hidden")) {
