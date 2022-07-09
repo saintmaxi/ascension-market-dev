@@ -506,6 +506,11 @@ h4 {
 
 @media screen and (max-width: 991px) {
 
+    #market-section {
+        padding-top: 16vh !important;
+          padding-bottom: calc(1.5vw + 150px) !important;
+      }
+
     #before-buying {
         font-size: 4.4vh !important;
         line-height: 4.4vh !important;
@@ -527,21 +532,21 @@ h4 {
 
     .token-balance-float {
         position: fixed;
-        bottom: 20px;
+        bottom: 5px;
         left: 50%;
         transform: translate(-50%, 0);
         width: 80%;
         margin: auto;
-        font-size: 2.5vh;
+        font-size: 2vh;
         z-index: 10;
         display: flex;
         align-items: center;
         text-align: center;
         justify-content: center;
-        padding: 15px;
+        padding: 5px;
         background: white;
         color: black;
-        border: 5px solid black;
+        border: 1px solid white;
         height: initial;
       }
 

@@ -89,6 +89,7 @@ const approveTokenToMarket = async() => {
 
 const checkTokenApproval = async() => {
     const userAddress = await getAddress();
+    const width = $(window).width();
 
     if (Number(await cheeth.allowance(userAddress, marketAddress)) >= maxInt) {
         $("#approval-button").addClass("hidden");
@@ -99,7 +100,7 @@ const checkTokenApproval = async() => {
     if ($("#approval-button").hasClass("hidden") && $("#set-discord-button").hasClass("hidden")) {
         $("#onboarding-section").addClass("hidden");
         $("#top").css("position", "fixed");
-        $("#market-section").css("padding-top", "9vh");
+        $("#market-section").css("padding-top", (width > 991) ? "9vh" : "17vh");
     }
     else {
         $("#top").css("position", "initial");
