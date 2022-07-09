@@ -506,6 +506,36 @@ h4 {
 
 @media screen and (max-width: 991px) {
 
+    #onboarding-section {
+        display: inline-block;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        height: initial;
+        width: 100%;
+    }
+
+    #onboarding-section p {
+        width: 90%;
+        margin-bottom: 0 !important;
+        background-color: #BF0C00;
+        display: inline-block;
+    }
+    
+    #warning {
+        width: 7vw;
+        display: inline-block;
+    }
+    
+    .onboarding-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #approval {
+        width: 100%;
+    }
+
     #market-section {
           padding-bottom: calc(1.5vw + 150px) !important;
       }
@@ -554,24 +584,6 @@ h4 {
     #onboarding-alert p {
         width: 95%;
         margin: auto !important;
-    }
-
-    #onboarding-section {
-        padding-top: 25px !important;
-        padding-bottom: 25px !important;
-    }
-
-    .onboarding-wrapper {
-        display: initial;
-    }
-
-    .onboarding {
-        width: 90%;
-    }
-
-    .onboarding h1 {
-        font-size: 4.5vh !important;
-        line-height: 4.5vh !important;
     }
 
     #wl-select {
