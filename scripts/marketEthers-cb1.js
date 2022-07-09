@@ -100,7 +100,7 @@ const checkTokenApproval = async() => {
     if ($("#approval-button").hasClass("hidden") && $("#set-discord-button").hasClass("hidden")) {
         $("#onboarding-section").addClass("hidden");
         $("#top").css("position", "fixed");
-        $("#market-section").css("padding-top", (width > 991) ? "9vh" : "17vh");
+        $("#market-section").css("padding-top", (width > 991) ? "9vh" : `${$("#top").height() + $("#mobile-wallet-connect-div").height() + 20}px`);
     }
     else {
         $("#top").css("position", "initial");

@@ -20,7 +20,7 @@
   }
 
   #market-section {
-    padding-top: 9vh !important;
+    padding-top: 9vh;
       padding-bottom: calc(1.5vw + 150px) !important;
   }
 
@@ -507,7 +507,6 @@ h4 {
 @media screen and (max-width: 991px) {
 
     #market-section {
-        padding-top: 16vh !important;
           padding-bottom: calc(1.5vw + 150px) !important;
       }
 
