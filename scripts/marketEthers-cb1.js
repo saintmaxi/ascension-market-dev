@@ -2,9 +2,9 @@
 /********************************PRODUCTION CONFIG********************************/
 /*********************************************************************************/
 
-const cheethAddress = "0xeBd707E7b27c6c14C98a327e332a0DF7C6C015b0";
-const cheethAbi = () => { 
-    return `[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"MAX_SUPPLY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"babyAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burnFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"outcome","type":"uint256"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"claimCheeth","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"claimedBabies","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"claimedGenesis","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"claimedWallets","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"genesisAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"getClaimableData","outputs":[{"internalType":"uint256[]","name":"genesisTokens","type":"uint256[]"},{"internalType":"uint256","name":"genesisClaimableCheeth","type":"uint256"},{"internalType":"uint256[]","name":"babyTokens","type":"uint256[]"},{"internalType":"uint256","name":"babyClaimableCheeth","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"isSignatureClaimEnabled","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_genesisAddress","type":"address"},{"internalType":"address","name":"_babyAddress","type":"address"},{"internalType":"address","name":"rewarderAddress","type":"address"}],"name":"setAddresses","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bool","name":"_isSignatureClaimEnabled","type":"bool"}],"name":"setIsSignatureClaimEnabled","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
+const tokenAddress = "0xd21657f8C821BC08877e3C7414FcF1A23883E04b";
+const tokenAbi = () => { 
+    return `[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]`;
 };
 
 const marketAddress = "0xFD8f4aC172457FD30Df92395BC69d4eF6d92eDd4";
@@ -20,9 +20,9 @@ const tokenImgURL = "https://github.com/saintmaxi/ascension-market-dev/blob/mast
 /***********************************DEV CONFIG************************************/
 /*********************************************************************************/
 
-// const cheethAddress = "0x403f391d5e2dD66E541C481C39F628E503d0CE3A";
-// const cheethAbi = () => { 
-//     return `[{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"burn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"burnAsController","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"burnFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"burners","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"mintAsController","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"minters","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"to_","type":"address[]"},{"internalType":"uint256[]","name":"amounts_","type":"uint256[]"}],"name":"multiTransfer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"from_","type":"address[]"},{"internalType":"address[]","name":"to_","type":"address[]"},{"internalType":"uint256[]","name":"amounts_","type":"uint256[]"}],"name":"multiTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"address_","type":"address"},{"internalType":"bool","name":"bool_","type":"bool"}],"name":"setBurner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"address_","type":"address"},{"internalType":"bool","name":"bool_","type":"bool"}],"name":"setMinter","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from_","type":"address"},{"internalType":"address","name":"to_","type":"address"},{"internalType":"uint256","name":"amount_","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"new_","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
+// const tokenAddress = "0x403f391d5e2dD66E541C481C39F628E503d0CE3A";
+// const tokenAbi = () => { 
+//     return `[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]`;
 // };
 
 // const marketAddress = "0x07f4de9cDFf4FB65AC00166A1090D5a750FFA25b";
@@ -46,7 +46,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 const signer = provider.getSigner();
 
 // Initiate Contracts
-const cheeth = new ethers.Contract(cheethAddress, cheethAbi(), signer);
+const token = new ethers.Contract(tokenAddress, tokenAbi(), signer);
 const market = new ethers.Contract(marketAddress, marketAbi(), signer);
 
 // General Functions
@@ -81,7 +81,7 @@ const loadingDiv = `<div id="ex1" class="partner-collection example">
 // Approval Functions
 
 const approveTokenToMarket = async() => {
-    await cheeth.approve(marketAddress, maxInt).then (async(tx_) => {
+    await token.approve(marketAddress, maxInt).then (async(tx_) => {
         await waitForTransaction(tx_);
         $("#approval-button").html(`Approving<span class="one">.</span><span class="two">.</span><span class="three">.</span>`)
     });
@@ -91,7 +91,7 @@ const checkTokenApproval = async() => {
     const userAddress = await getAddress();
     const width = $(window).width();
 
-    if (Number(await cheeth.allowance(userAddress, marketAddress)) >= maxInt) {
+    if (Number(await token.allowance(userAddress, marketAddress)) >= maxInt) {
         $("#approval-button").addClass("hidden");
     }
     else {
@@ -111,7 +111,7 @@ const checkTokenApproval = async() => {
 
 const updateTokenBalance = async() => {
     const userAddress = await getAddress();
-    let balance = Number(formatEther((await cheeth.balanceOf(userAddress)))).toFixed(1);
+    let balance = Number(formatEther((await token.balanceOf(userAddress)))).toFixed(1);
     $("#token-balance").html(`${balance}`);
     $("#mobile-balance").html(`${balance}`);
 }
@@ -145,10 +145,10 @@ const purchase = async(tokenAddress, id) => {
             await displayErrorMessage(`Error: Listing expired!`);
         }
         else if ((error.message).includes("Not enough tokens")) {
-            await displayErrorMessage(`Error: Not enough $CHEETH!`);
+            await displayErrorMessage(`Error: Not enough $SOULS!`);
         }
         else if ((error.message).includes("transfer amount exceeds allowance")) {
-            await displayErrorMessage(`Error: Market not approved to spend $CHEETH!`);
+            await displayErrorMessage(`Error: Market not approved to spend $SOULS!`);
         }
         else if ((error.message).includes("User denied transaction signature")) {
             console.log("Transaction rejected.");
@@ -182,7 +182,7 @@ setInterval(async()=>{
             if (liveTimerPending[i]) {
                 let id = liveListings[i];
                 let now = Date.now() / 1000;
-                let endTime = Number((await market.contractToWLVendingItems(cheethAddress, id)).endTime);
+                let endTime = Number((await market.contractToWLVendingItems(tokenAddress, id)).endTime);
                 let distance = endTime - now;
         
                 var hours = Math.floor(distance / (60 * 60));
@@ -225,7 +225,7 @@ setInterval(async()=>{
             if (pendingTimerPending[i]) {
                 let id = pendingListings[i];
                 let now = Date.now() / 1000;
-                let startTime = Number((await market.contractToWLVendingItems(cheethAddress, id)).startTime);
+                let startTime = Number((await market.contractToWLVendingItems(tokenAddress, id)).startTime);
                 let distance = startTime - now;
         
                 var hours = Math.floor(distance / (60 * 60));
@@ -264,10 +264,10 @@ setInterval(async()=>{
 
 const loadCollections = async() => {
     const userAddress = await getAddress();
-    const numCollections = Number( await market.getWLVendingItemsLength(cheethAddress) );
+    const numCollections = Number( await market.getWLVendingItemsLength(tokenAddress) );
     let allItems;
     if (numCollections > 0) {
-        allItems = await market.getWLVendingObjectsPaginated( cheethAddress, 0, numCollections - 1);
+        allItems = await market.getWLVendingObjectsPaginated( tokenAddress, 0, numCollections - 1);
     }
     else {
         allItems = [];
@@ -285,7 +285,7 @@ const loadCollections = async() => {
             // WL data from contract
             let WLinfo = allItems[id];
             let collectionPrice = Number(formatEther(WLinfo.price));
-            let purchased = await market.contractToWLPurchased(cheethAddress, id, userAddress);
+            let purchased = await market.contractToWLPurchased(tokenAddress, id, userAddress);
 
             // Data from JSON file
             let maxSlots = WLinfo.amountAvailable;
@@ -313,7 +313,7 @@ const loadCollections = async() => {
                     button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED</button>`;
                 }
                 else {
-                    button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${cheethAddress}', ${id})">PURCHASE</button>`;
+                    button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${tokenAddress}', ${id})">PURCHASE</button>`;
                 }
                 let fakeJSX = `<div class="partner-collection" id="project-${id}">
                                 <a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;"><img class="website" src="./images/website.png"></a>
@@ -396,10 +396,10 @@ const loadCollections = async() => {
 
 const updateSupplies = async() => {
     let userAddress = await getAddress();
-    let numListings = Number(await market.getWLVendingItemsLength(cheethAddress));
+    let numListings = Number(await market.getWLVendingItemsLength(tokenAddress));
     for (let id = 0; id < numListings; id++) {
-        let buyers = await market.getWLPurchasersOf(cheethAddress, id);
-        let WLinfo = await market.contractToWLVendingItems(cheethAddress, id);
+        let buyers = await market.getWLPurchasersOf(tokenAddress, id);
+        let WLinfo = await market.contractToWLVendingItems(tokenAddress, id);
         let maxSlots = WLinfo.amountAvailable;
         let minted = WLinfo.amountPurchased;
         let purchased = buyers.includes(userAddress);
@@ -428,7 +428,7 @@ const waitForTransaction = async(tx_) => {
 };
 
 // Resuming UI display, refreshing market for pending txs across pages
-var pendingTransactions = localStorage.getItem("CheethMarketPendingTxs");
+var pendingTransactions = localStorage.getItem("AscensionMarketPendingTxs");
 
 if (!pendingTransactions) {
     pendingTransactions = new Set();
@@ -441,11 +441,11 @@ else {
     for (let i =0; i < pendingTxArray.length; i++) {
         waitForTransaction(pendingTxArray[i]);
     }
-    localStorage.removeItem("CheethMarketPendingTxs");
+    localStorage.removeItem("AscensionMarketPendingTxs");
 }
 
 function cachePendingTransactions() {
-    localStorage.setItem("CheethMarketPendingTxs", JSON.stringify(Array.from(pendingTransactions)));
+    localStorage.setItem("AscensionMarketPendingTxs", JSON.stringify(Array.from(pendingTransactions)));
 }
 
 function startLoading(tx) {
@@ -535,7 +535,7 @@ window.onload = async() => {
         console.log("using wallet")
         await updateInfo();
         let userAddress = await getAddress();
-        if ((await market.isAuthorized(cheethAddress, userAddress))) {
+        if ((await market.isAuthorized(tokenAddress, userAddress))) {
             $("#workshop").removeClass("hidden");
             $("#workshop-mobile").removeClass("hidden");
         }

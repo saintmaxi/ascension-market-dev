@@ -21,7 +21,7 @@ h2 {
     line-height: 2vw;
 }
 
-#cheeth-allocation {
+#market-allocation {
     border-top: solid 1px white;
     padding-top: .5vw;
 }
@@ -129,7 +129,7 @@ select {
         padding-bottom: 4vh;
     }
 
-    #cheeth-allocation {
+    #market-allocation {
         border-top: solid 1px white;
         padding-top: 4vh !important;
     }

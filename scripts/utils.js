@@ -77,7 +77,7 @@ function toggleMenu() {
 }
 
 function clearPendingTxs() {
-    localStorage.removeItem("CheethMarketPendingTxs");
+    localStorage.removeItem("AscensionMarketPendingTxs");
     pendingTransactions.clear();
     location.reload();
 };
