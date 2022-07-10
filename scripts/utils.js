@@ -187,6 +187,8 @@ function clearPendingTxs() {
              $("#discord-mobile").removeClass("failure"); 
              $("#discord-img").attr("src", "./images/dc-black.png");
              $("#edit-img").attr("src", "./images/edit.png");
+             $("#discord-mobile #discord-img").attr("src", "./images/dc-black.png");
+             $("#discord-mobile #edit-img").attr("src", "./images/edit.png");
          }
          else {
             $("#set-discord-button").removeClass("hidden");
@@ -198,6 +200,8 @@ function clearPendingTxs() {
              $("#discord-mobile").removeClass("success");
              $("#discord-img").attr("src", "./images/dc-white.png");
              $("#edit-img").attr("src", "./images/edit-white.png");
+             $("#discord-mobile #discord-img").attr("src", "./images/dc-white.png");
+             $("#discord-mobile #edit-img").attr("src", "./images/edit-white.png");
          }
      }
     if ($("#approval").hasClass("hidden") && $("#set-discord").hasClass("hidden")) {
