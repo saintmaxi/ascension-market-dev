@@ -107,7 +107,12 @@ function clearPendingTxs() {
 
  // ======= DISCORD UTILS ========
 
- const identityMapperAddress = "0xaD48C81ac9CdcD4fE3e25B8493b2798eA5104e6f";
+ // Mainnet
+//  const identityMapperAddress = "0xaD48C81ac9CdcD4fE3e25B8493b2798eA5104e6f";
+
+ // Testnet
+ const identityMapperAddress = "0xffccE647DA8a266A8779875b9c68cb51DC236C80";
+
  const identityMapperAbi = () => {
      return `[{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"addressToDiscord","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"addressToTwitter","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"discordTag_","type":"string"}],"name":"setDiscordIdentity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"twitterTag_","type":"string"}],"name":"setTwitterIdentity","outputs":[],"stateMutability":"nonpayable","type":"function"}]`;
  }
@@ -146,9 +151,9 @@ function clearPendingTxs() {
              await displayErrorMessage(`Error: No User ID provided!`);
  
          }
-         else if (!(/^\d+$/.test(val))) {
-             await displayErrorMessage(`Error: Must include only numbers in ID!`);
-         }
+         else if (!(name.includes("#"))) {
+            await displayErrorMessage(`Error: Must include "#" and numbers in ID!`);
+        }
          else {
              await identityMapper.setDiscordIdentity(name).then( async(tx_) => {
                  await waitForTransaction(tx_);

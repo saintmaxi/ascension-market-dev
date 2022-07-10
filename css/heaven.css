@@ -59,6 +59,10 @@ h1, h2, h3, h4 {
     border-color: black;
 }
 
+.loading-div {
+    border-color: black;
+}
+
 
 @media screen and (max-width: 991px) {
 
