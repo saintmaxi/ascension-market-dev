@@ -27,9 +27,8 @@ h2 {
 }
 
 #wl-section {
-    border-radius: 1vw;
-    background: #f3e3aee0;
-    border: solid .5vw #F1C94B;
+    background: #bf0d00a5;
+    border: solid .1px white;
     width: 90%;
     overflow-y: scroll;
     margin: auto;
@@ -42,7 +41,6 @@ h2 {
 
 .wl-row {
     width: 100%;
-    border-radius: .5vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -62,11 +60,11 @@ h2 {
 }
 
 #wl-section > .wl-row:nth-child(1) {
-    background: #F1C94B !important;
+    background: #BF0C00 !important;
 }
 
 #wl-section > .wl-row:nth-of-type(odd) {
-    background: #f5dd8e;
+    background: #ac443c;
 
 }
 
@@ -95,7 +93,6 @@ select {
     .wl-row {
         display: block;
         padding: 8px;
-        border-radius: 1vw;
     }
 
     #discord-header, #address-header {
@@ -120,12 +117,12 @@ select {
     }
 
     h1 {
-        border-bottom: solid 5px #333333;
+        border-bottom: solid 1px white;
         padding-bottom: 4vh;
     }
 
     #cheeth-allocation {
-        border-top: solid 5px #333333;
+        border-top: solid 1px white;
         padding-top: 4vh !important;
     }
 
@@ -143,10 +140,14 @@ select {
     }
 
     select {
-        font-size: 2vh;
-        line-height: 2vh;
+        font-size: 2vh !important;
+        line-height: 2vh !important;
         width: 90%;
         margin-bottom: 4vh;
+    }
+
+    #download-button {
+        width: 5%;
     }
 
     #spacer {

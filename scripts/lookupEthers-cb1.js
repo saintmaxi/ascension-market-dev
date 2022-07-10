@@ -116,11 +116,11 @@ const loadCollectionsData = async() => {
                 let discordResult = discord ? discord : "Discord Unknown";
                 return {discord: discordResult, address: buyer};
             }));
-            projectToWL.set(title+deadline, discordsAndBuyers);
-            fakeJSX = `<option value="${title+deadline}">${title} ${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</option>`;
+            projectToWL.set(id, {title: `${id}: ${title}`, discordsAndBuyers: discordsAndBuyers});
+            fakeJSX = `<option value="${id}">${id}: ${title}</option>`;
             idToJSX.set(id, fakeJSX)
             if (id == 0) {
-                selectListing(title+deadline);
+                selectListing(id);
             }
         }))
     };
@@ -142,8 +142,9 @@ const loadMyWL = async() => {
 }
 
 function selectListing(listingKey) {
+    listingKey = Number(listingKey);
     $("#wl-section").addClass("hidden");
-    let wlArray = [...(projectToWL.get(listingKey))].map(x => {
+    let wlArray = [...((projectToWL.get(listingKey)).discordsAndBuyers)].map(x => {
         if (x.discord) {
             return `<div class="wl-row"><div class="wl-discord">${(x.discord).toUpperCase()}</div><div class="wl-address">${(x.address).toUpperCase()}</div></div>`;
         }
@@ -159,8 +160,9 @@ function selectListing(listingKey) {
 }
 
 function updateDownload(listingKey) {
-    let filename = `Anonymice - ${listingKey} WL.csv`;
-    let wlArray = [...(projectToWL.get(listingKey))].map(x => {
+    let listingInfo = projectToWL.get(listingKey);
+    let filename = `Anonymice - ${listingInfo.title} WL.csv`;
+    let wlArray = [...(listingInfo.discordsAndBuyers)].map(x => {
         if (x.discord) {
             headerRow = "DISCORD,ADDRESS\n";
             return `"${x.discord}","${x.address}"`;

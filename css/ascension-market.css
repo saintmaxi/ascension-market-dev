@@ -7,10 +7,9 @@
 select {
 	font-size: 2vw !important;
 	border-style: solid;
-	background-color: #333333;
-	color: white !important;
-	border-width: .5vw;
-	border-radius: 5px;
+	background-color: white;
+	color: black !important;
+	border-width: 1px solid black;
 	border: none;
 	min-width: 35%;
 }
