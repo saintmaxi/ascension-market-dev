@@ -91,10 +91,6 @@
 
 /* end onboarding section */
 
-#market-section {
-    padding-top: 0;
-}
-
 button.active {
     /* border-bottom: 1px solid white; */
     color: #BF0C00 !important;
@@ -415,7 +411,7 @@ h4 {
 
 .purchased:hover {
     background-color: #9c9696 !important;
-    color: #F8E4A9 !important;
+    color: white !important;
 }
 
 .cover button:hover {
