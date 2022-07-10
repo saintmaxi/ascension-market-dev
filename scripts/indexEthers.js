@@ -35,10 +35,6 @@ const correctChain = 4;
 
 /*********************************END CONFIG************************************/
 
-if (window.ethereum == undefined) {
-    displayErrorMessage('Use a web3 enabled browser and connect to use lookup tool!');
-}
-
 const provider = new ethers.providers.Web3Provider(window.ethereum,"any");
 const signer = provider.getSigner();
 const souls = new ethers.Contract(tokenAddress, tokenAbi(), signer);
@@ -63,123 +59,6 @@ const parseEther = (eth_)=>{
 const getChainId = async()=>{
     return await signer.getChainId()
 };
-
-const updateCurrentChain = async() => {
-    if ((await getChainId()) !== correctChain) {
-        displayErrorMessage("Error: Wrong Network!", false);
-    }
-    else {
-        $("#error-popup").remove();
-        $("#block-screen-error").remove();
-    }
-}
-
-const updateTokenBalance = async() => {
-    const userAddress = await getAddress();
-    let balance = formatEther((await token.balanceOf(userAddress)));
-    $("#token-balance").html(`${balance}`);
-    $("#mobile-balance").html(`${balance}`);
-}
-
-const splitArrayToChunks = (array_, chunkSize_) => {
-    let _arrays = Array(Math.ceil(array_.length / chunkSize_))
-        .fill()
-        .map((_, index) => index * chunkSize_)
-        .map((begin) => array_.slice(begin, begin + chunkSize_));
-
-    return _arrays;
-};
-
-var projectToWL = new Map();
-var myWL = [];
-
-const loadCollectionsData = async() => {
-    let userAddress = await getAddress();
-    let numListings = Number(await market.getWLVendingItemsLength(tokenAddress));
-    let fakeJSX = "";
-    let allListingIds = Array.from(Array(numListings).keys());
-    const chunks = splitArrayToChunks(allListingIds, 20);
-    let idToJSX = new Map();
-    let fullJSX = "";
-    for (const chunk of chunks) {
-        await Promise.all( chunk.map( async(id) => {
-            let buyers = await market.getWLPurchasersOf(tokenAddress, id);
-            let WLinfo = await market.contractToWLVendingItems(tokenAddress, id);
-            let title = WLinfo.title;
-            let deadline = WLinfo.endTime;
-            let purchased = buyers.includes(userAddress);
-            if (purchased) {
-                myWL.push(title);
-            }
-            let discordsAndBuyers = await Promise.all(buyers.map(async (buyer) => {
-                let discord = await identityMapper.addressToDiscord(buyer);
-                let discordResult = discord ? discord : "Discord Unknown";
-                return {discord: discordResult, address: buyer};
-            }));
-            projectToWL.set(id, {title: `${id}: ${title}`, discordsAndBuyers: discordsAndBuyers});
-            fakeJSX = `<option value="${id}">${id}: ${title}</option>`;
-            idToJSX.set(id, fakeJSX)
-            if (id == 0) {
-                selectListing(id);
-            }
-        }))
-    };
-    for (const listingId of allListingIds) {
-        fullJSX += idToJSX.get(listingId);
-    }
-    $("#listing-select").empty();
-    $("#listing-select").append(fullJSX);
-}
-
-const loadMyWL = async() => {
-    if (myWL.length == 0) {
-        $("#your-wl-spots").html("No spots purchased!");
-    }
-    else {
-        let wlString = myWL.join("<br>");
-        $("#your-wl-spots").html(wlString);
-    }
-}
-
-function selectListing(listingKey) {
-    listingKey = Number(listingKey);
-    $("#wl-section").addClass("hidden");
-    let wlArray = [...((projectToWL.get(listingKey)).discordsAndBuyers)].map(x => {
-        if (x.discord) {
-            return `<div class="wl-row"><div class="wl-discord">${(x.discord).toUpperCase()}</div><div class="wl-address">${(x.address).toUpperCase()}</div></div>`;
-        }
-        else {
-            return `<div class="wl-row"><div class="wl-discord">NO DISCORD</div><div class="wl-address">${(x.address).toUpperCase()}</div></div>`;
-        }
-    });
-    let wlString = `<div class="wl-row"><div class="wl-discord" id="discord-header">DISCORD</div> <div class="wl-address" id="address-header">ADDRESS</div> </div>` + wlArray.join('');
-    $("#wl-section").empty();
-    $("#wl-section").append(wlString);
-    $("#wl-section").removeClass("hidden");
-    updateDownload(listingKey);
-}
-
-function updateDownload(listingKey) {
-    let listingInfo = projectToWL.get(listingKey);
-    let filename = `Anonymice - ${listingInfo.title} WL.csv`;
-    let wlArray = [...(listingInfo.discordsAndBuyers)].map(x => {
-        if (x.discord) {
-            headerRow = "DISCORD,ADDRESS\n";
-            return `"${x.discord}","${x.address}"`;
-        }
-        else {
-            headerRow = "ADDRESS\n";
-            return `"${x.address}"`;
-        }
-    });
-    let wlString = wlArray.join("\n");
-    wlString = headerRow + wlString;
-
-    $("#download-link").attr('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(wlString));
-    $("#download-link").attr('download', filename);
-}
-
-
 
 // General functions
 
@@ -245,7 +124,6 @@ async function endLoading(tx, txStatus) {
 }
 
 setInterval(async()=>{
-    await updateCurrentChain();
     await updateInfo();
 }, 5000)
 
@@ -260,16 +138,12 @@ ethereum.on("accountsChanged", async(accounts_)=>{
 });
 
 window.onload = async()=>{
-    await updateCurrentChain();
     await updateInfo();
     let userAddress = await getAddress();
     if ((await market.isAuthorized(tokenAddress, userAddress))) {
         $("#workshop").removeClass("hidden");
         $("#workshop-mobile").removeClass("hidden");
     }
-    $("#your-wl-spots").html(`LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
-    await loadCollectionsData();
-    await loadMyWL();
 };
 
 window.onunload = async()=>{
