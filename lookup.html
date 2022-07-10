@@ -171,14 +171,17 @@
                      LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span>
                   </div>
                   <h2 id="cheeth-allocation">ALL MARKET PURCHASERS</h2>
-                  <select id="listing-select" onchange="selectListing(this.value)">
-                     <option disabled selected value="">
-                        LOADING WHITELISTS<span class="one">.</span><span class="two">.</span><span class="three">.</span>
-                     </option>
-                  </select>
-                  <a href="#" id="download-link" onclick="download()">
-                     <svg id="download-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="white" d="M480 352h-133.5l-45.25 45.25C289.2 409.3 273.1 416 256 416s-33.16-6.656-45.25-18.75L165.5 352H32c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h448c17.67 0 32-14.33 32-32v-96C512 366.3 497.7 352 480 352zM432 456c-13.2 0-24-10.8-24-24c0-13.2 10.8-24 24-24s24 10.8 24 24C456 445.2 445.2 456 432 456zM233.4 374.6C239.6 380.9 247.8 384 256 384s16.38-3.125 22.62-9.375l128-128c12.49-12.5 12.49-32.75 0-45.25c-12.5-12.5-32.76-12.5-45.25 0L288 274.8V32c0-17.67-14.33-32-32-32C238.3 0 224 14.33 224 32v242.8L150.6 201.4c-12.49-12.5-32.75-12.5-45.25 0c-12.49 12.5-12.49 32.75 0 45.25L233.4 374.6z"/></svg>
-                  </a>
+                  <div id="select-wrapper">
+                     <select id="listing-select" onchange="selectListing(this.value)">
+                        <option disabled selected value="">
+                           LOADING WHITELISTS<span class="one">.</span><span class="two">.</span><span class="three">.</span>
+                        </option>
+                     </select>
+                     <a href="#" id="download-link" onclick="download()">
+                        <svg id="download-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="white" d="M384 128h-128V0L384 128zM256 160H384v304c0 26.51-21.49 48-48 48h-288C21.49 512 0 490.5 0 464v-416C0 21.49 21.49 0 48 0H224l.0039 128C224 145.7 238.3 160 256 160zM255 295L216 334.1V232c0-13.25-10.75-24-24-24S168 218.8 168 232v102.1L128.1 295C124.3 290.3 118.2 288 112 288S99.72 290.3 95.03 295c-9.375 9.375-9.375 24.56 0 33.94l80 80c9.375 9.375 24.56 9.375 33.94 0l80-80c9.375-9.375 9.375-24.56 0-33.94S264.4 285.7 255 295z"/></svg>
+                        
+                     </a>
+                  </div>
                   <div id="wl-section" class="hidden">
                      LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span>
                   </div>
