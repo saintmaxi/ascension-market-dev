@@ -1,4 +1,3 @@
-// a saintmaxi joint
 /*********************************************************************************/
 /********************************PRODUCTION CONFIG********************************/
 /*********************************************************************************/
@@ -15,9 +14,10 @@ const marketAbi = () => {
 
 const etherscanBase = `https://etherscan.io/tx/`;
 const correctChain = 1;
+const tokenImgURL = "https://github.com/saintmaxi/ascension-market-dev/blob/master/images/souls.png?raw=true";
 
 /*********************************************************************************/
-/********************************DEV CONFIG********************************/
+/***********************************DEV CONFIG************************************/
 /*********************************************************************************/
 
 // const tokenAddress = "0x403f391d5e2dD66E541C481C39F628E503d0CE3A";
@@ -32,235 +32,394 @@ const correctChain = 1;
 
 // const etherscanBase = `https://rinkeby.etherscan.io/tx/`;
 // const correctChain = 4;
+// const tokenImgURL = "https://github.com/saintmaxi/ascension-market-dev/blob/master/images/souls.png?raw=true";
 
 /*********************************END CONFIG************************************/
 
 if (window.ethereum == undefined) {
-    displayErrorMessage('Use a web3 enabled browser and connect to use workshop!');
+    displayErrorMessage('Use a web3 enabled browser to browse listings!');
+    loadInfuraListings();
 }
 
-const provider = new ethers.providers.Web3Provider(window.ethereum,"any");
+// Initiate Provider 
+const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 const signer = provider.getSigner();
-const souls = new ethers.Contract(tokenAddress, tokenAbi(), signer);
+
+// Initiate Contracts
+const token = new ethers.Contract(tokenAddress, tokenAbi(), signer);
 const market = new ethers.Contract(marketAddress, marketAbi(), signer);
 
-const connect = async()=>{
-    await provider.send("eth_requestAccounts", []);
-};
+// General Functions
+const connect = async() => { await provider.send("eth_requestAccounts", []) };
+const getAddress = async() => { try { return await signer.getAddress(); } catch { return false; }};
+const formatEther = (balance_) => { return ethers.utils.formatEther(balance_) }; // divides by 18 modulus
+const parseEther = (eth_) => { return ethers.utils.parseEther(eth_) }; // multiplies by 18 modulus
+const getChainId = async() => { return await signer.getChainId() };
 
-const getAddress = async()=>{
-    return await signer.getAddress()
-};
+// General Variables
+const maxInt = "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 
-const formatEther = (balance_)=>{
-    return ethers.utils.formatEther(balance_)
-};
+const loadingDiv = `<div id="ex1" class="partner-collection example">
+                        <div class="cover">
+                            <button class="button loading" onclick="connect()">LOADING<span class="one">.</span><span class="two">.</span><span class="three">.</span></button>
+                        </div>
+                        <img class="collection-img" src="./images/silhouette.jpeg">
+                        <div class="collection-info">
+                            <h3>???</h3>
+                            <h4>???/??? Purchased
+                            <br>
+                            ??? <img src="${tokenImgURL}" class="token-icon">
+                            <br>
+                            <span class="end-time">Ends MM/DD/YYYY HH:MM AM</span>
+                            </h4>
+                            <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
+                            </div>
+                            <button class="button">PURCHASE</button>
+                        </div>
+                    </div>`
 
-const parseEther = (eth_)=>{
-    return ethers.utils.parseEther(eth_)
-};
+// Approval Functions
 
-const getChainId = async()=>{
-    return await signer.getChainId()
-};
+const approveTokenToMarket = async() => {
+    await token.approve(marketAddress, maxInt).then (async(tx_) => {
+        await waitForTransaction(tx_);
+        $("#approval-button").html(`Approving<span class="one">.</span><span class="two">.</span><span class="three">.</span>`)
+    });
+}
 
-// --- WORKSHOP FUNCTIONS ---
+const checkTokenApproval = async() => {
+    const userAddress = await getAddress();
+    const width = $(window).width();
 
-// --- CREATE FUNCTIONS ---
-
-const generateCreate = async() => {
-    let title = $(`#create-input #listing-title`).val();
-    let image = $(`#create-input #listing-image`).val();
-    let site = ($(`#create-input #listing-site`).val()).includes("https://") ? $(`#create-input #listing-site`).val() : `https://${$(`#create-input #listing-site`).val()}`;
-    let description = $(`#create-input #listing-description`).val();
-    let amount = Number($(`#create-input #listing-amount`).val());
-    let start = (new Date($(`#create-input #listing-start`).val()).valueOf())/1000;
-    let deadline = (new Date($(`#create-input #listing-deadline`).val()).valueOf())/1000;
-    let price = Number($(`#create-input #listing-price`).val());
-
-    if (start > deadline) {
-        await displayErrorMessage("Error: Start time must be before deadline!");
+    if (Number(await token.allowance(userAddress, marketAddress)) >= maxInt) {
+        $("#approval-button").addClass("hidden");
     }
     else {
-        $(`#create-template #ex-title`).html(title.toUpperCase());
-        $(`#create-template #ex-image`).attr("src", image);
-        $(`#create-template #ex-site`).attr("href", site);
-        $(`#create-template #ex-description`).html(description.replaceAll("\n", "<br>"));
-        $(`#create-template #ex-amount`).html(amount);
-        $(`#create-template #ex-remaining`).html(0);
-        $(`#create-template #ex-start`).html(`${(new Date(start*1000)).toLocaleDateString()} ${(new Date(start*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-        $(`#create-template #ex-deadline`).html(`${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-        $(`#create-template #ex-price`).html(price);
+        $("#approval-button").removeClass("hidden");
     }
-}
-
-const addListing = async() => {
-    try {
-        let start = (new Date($(`#create-input #listing-start`).val()).valueOf())/1000;
-        let deadline = (new Date($(`#create-input #listing-deadline`).val()).valueOf())/1000;
-        if (start > deadline) {
-            await displayErrorMessage("Error: Start time must be before deadline!");
-        }
-        else {
-            let title = $("#create-input #listing-title").val();
-            let category = $("#create-input #type-select").val();
-            let image = $("#create-input #listing-image").val();
-            let site = ($("#create-input #listing-site").val()).includes("https://") ? $("#create-input #listing-site").val() : `https://${$("#create-input #listing-site").val()}`;
-            let description = $("#create-input #listing-description").val();
-            let amount = Number($("#create-input #listing-amount").val());
-            let price = parseEther($("#create-input #listing-price").val());
-            if (!(title && image && (site != null) && (description != null) && amount && start && deadline && price)) {
-                await displayErrorMessage("Missing fields!")
-            }
-            else {
-                await market.addWLVendingItem(tokenAddress, [title, image, site, category + " " + description, amount, 0, start, deadline, price]).then( async(tx_) => {
-                    await waitForTransaction(tx_);
-                });
-            }
-        }
-    }
-    catch (error) {
-        if ((error.message).includes("You are not Authorized for this ERC20 Contract!")) {
-            await displayErrorMessage(`You are not authorized to add listings for $SOULS!`);
-        }
-        else if ((error.message).includes("User denied transaction signature")) {
-            console.log("Transaction rejected.");
-        }
-        else {
-            await displayErrorMessage("An error occurred. See console and window alert for details...")
-            window.alert(JSON.stringify(error));
-            console.log(error);
-        }
-    }
-}
-
-// --- MODIFY FUNCTIONS ---
-
-const loadListings = async() => {
-    let fakeJSX = "";
-    const numCollections = Number( await market.getWLVendingItemsLength(tokenAddress) );
-    let listings = await market.getWLVendingObjectsPaginated(tokenAddress, 0, numCollections - 1);
-    for (let i = 0; i < listings.length; i++) {
-        let WLinfo = listings[i];
-        // let valid =  WLinfo.deadline > (Date.now()/1000);
-        // if (valid) {
-        //     fakeJSX += `<option value="${i}">${WLinfo.title}</option>`;
-        // }
-        fakeJSX += `<option value="${i}">${i}: ${WLinfo.title.toUpperCase()}</option>`;
-    }
-    $("#listing-select").append(fakeJSX);
-}
-
-var currentlySelected;
-
-const selectListing = async(id) => {
-    currentlySelected = Number(id);
-    let currentlySelectedWLinfo = await market.contractToWLVendingItems(tokenAddress, id);
-    let title = currentlySelectedWLinfo.title;
-    let image = currentlySelectedWLinfo.imageUri;
-    let site = (currentlySelectedWLinfo.projectUri).includes("https://") ? currentlySelectedWLinfo.projectUri : `https://${currentlySelectedWLinfo.projectUri}`;
-    let description = currentlySelectedWLinfo.description ? (currentlySelectedWLinfo.description).substr((currentlySelectedWLinfo.description).indexOf(" ") + 1) : "";
-    $("#modify-input #type-select").val(currentlySelectedWLinfo.description.split(' ')[0])
-    let amount = currentlySelectedWLinfo.amountAvailable;
-    let purchased = currentlySelectedWLinfo.amountPurchased;
-    let start = $("#modify-input #listing-start").val() ? (new Date($(`#modify-input #listing-start`).val()).valueOf())/1000 : currentlySelectedWLinfo.startTime;
-    let deadline = $("#modify-input #listing-deadline").val() ? (new Date($(`#modify-input #listing-deadline`).val()).valueOf())/1000 : currentlySelectedWLinfo.endTime;
-    let price = Number(formatEther(currentlySelectedWLinfo.price));
-
-    $("#modify-template #ex-title").html(title.toUpperCase());
-    $("#modify-template #ex-image").attr("src", image);
-    $("#modify-template #ex-site").attr("href", site);
-    $("#modify-template #ex-description").html(description.replaceAll("\n", "<br>"));
-    $("#modify-template #ex-amount").html(amount);
-    $("#modify-template #ex-remaining").html(purchased);
-    $("#modify-template #ex-start").html(`${(new Date(start*1000)).toLocaleDateString()} ${(new Date(start*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-    $("#modify-template #ex-deadline").html(`${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-    $("#modify-template #ex-price").html(price);
-}
-
-const generateModify = async() => {
-    let currentlySelectedWLinfo = await market.contractToWLVendingItems(tokenAddress, currentlySelected);
-    let title = $("#modify-input #listing-title").val() ? $("#modify-input #listing-title").val() : currentlySelectedWLinfo.title;
-    let image = $("#modify-input #listing-image").val()? $("#modify-input #listing-image").val() : currentlySelectedWLinfo.imageUri;
-    let site = $("#modify-input #listing-site").val() ? $("#modify-input #listing-site").val() : currentlySelectedWLinfo.projectUri;
-    let siteFormatted = site.includes("https://") ? site : `https://${site}`;
-    let description = $("#modify-input #listing-description").val() ? $("#modify-input #listing-description").val() : currentlySelectedWLinfo.description ? (currentlySelectedWLinfo.description).substr((currentlySelectedWLinfo.description).indexOf(" ") + 1) : "";
-    let amount = $("#modify-input #listing-amount").val() ? Number($("#modify-input #listing-amount").val()) : currentlySelectedWLinfo.amountAvailable;
-    let purchased = currentlySelectedWLinfo.amountPurchased;
-    let start = $("#modify-input #listing-start").val() ? (new Date($(`#modify-input #listing-start`).val()).valueOf())/1000 : currentlySelectedWLinfo.startTime;
-    let deadline = $("#modify-input #listing-deadline").val() ? (new Date($(`#modify-input #listing-deadline`).val()).valueOf())/1000 : currentlySelectedWLinfo.endTime;
-    let price = $("#modify-input #listing-price").val() ? $("#modify-input #listing-price").val() : Number(formatEther(currentlySelectedWLinfo.price));
-
-    if (start > deadline) {
-        await displayErrorMessage("Error: Start time must be before deadline!");
+    if ($("#approval-button").hasClass("hidden") && $("#set-discord-button").hasClass("hidden")) {
+        $("#onboarding-section").addClass("hidden");
+        $("#top").css("position", "fixed");
+        $("#market-section").css("padding-top", (width > 991) ? "9vh" : `${$("#top").height() + $("#mobile-wallet-connect-div").height() + 20}px`);
     }
     else {
-        $(`#modify-template #ex-title`).html(title.toUpperCase());
-        $(`#modify-template #ex-image`).attr("src", image);
-        $(`#modify-template #ex-site`).attr("href", siteFormatted);
-        $(`#modify-template #ex-description`).html(description.replaceAll("\n", "<br>"));
-        $(`#modify-template #ex-amount`).html(amount);
-        $(`#modify-template #ex-remaining`).html(purchased);
-        $(`#modify-template #ex-start`).html(`${(new Date(start*1000)).toLocaleDateString()} ${(new Date(start*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-        $(`#modify-template #ex-deadline`).html(`${(new Date(deadline*1000)).toLocaleDateString()} ${(new Date(deadline*1000)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`);
-        $(`#modify-template #ex-price`).html(price);
+        $("#top").css("position", "initial");
+        $("#market-section").css("padding-top", "0");
+        $("#onboarding-section").removeClass("hidden");
     }
+};
+
+const updateTokenBalance = async() => {
+    const userAddress = await getAddress();
+    let balance = Number(formatEther((await token.balanceOf(userAddress)))).toFixed(1);
+    $("#token-balance").html(`${balance}`);
+    $("#mobile-balance").html(`${balance}`);
 }
 
-const modifyListing = async() => {
+const purchase = async(tokenAddress, id) => {
     try {
-        let currentlySelectedWLinfo = await market.contractToWLVendingItems(tokenAddress, currentlySelected);
-        let title = $("#modify-input #listing-title").val() ? $("#modify-input #listing-title").val() : currentlySelectedWLinfo.title;
-        let category = $("#modify-input #type-select").val();
-        let image = $("#modify-input #listing-image").val()? $("#modify-input #listing-image").val() : currentlySelectedWLinfo.imageUri;
-        let site = $("#modify-input #listing-site").val() ? $("#modify-input #listing-site").val() : currentlySelectedWLinfo.projectUri;
-        let siteFormatted = site.includes("https://") ? site : `https://${site}`;
-        let description = $("#modify-input #listing-description").val() ? $("#modify-input #listing-description").val() : currentlySelectedWLinfo.description ? (currentlySelectedWLinfo.description).substr((currentlySelectedWLinfo.description).indexOf(" ") + 1) : "";
-        let amount = $("#modify-input #listing-amount").val() ? Number($("#modify-input #listing-amount").val()) : currentlySelectedWLinfo.amountAvailable;
-        let purchased = currentlySelectedWLinfo.amountPurchased;
-        let start = $("#modify-input #listing-start").val() ? (new Date($(`#modify-input #listing-start`).val()).valueOf())/1000 : currentlySelectedWLinfo.startTime;
-        let deadline = $("#modify-input #listing-deadline").val() ? (new Date($(`#modify-input #listing-deadline`).val()).valueOf())/1000 : currentlySelectedWLinfo.endTime;
-        let price = $("#modify-input #listing-price").val() ? parseEther($("#modify-input #listing-price").val()) : currentlySelectedWLinfo.price;
-        if (!(title && image && (site != null) && (description != null) && amount && start && deadline && price && (purchased != null))) {
-            await displayErrorMessage("Missing fields!")
-        }
-        else if (amount < purchased) {
-            await displayErrorMessage("Error: Can't have less spots than already sold!")
-        }
-        else if (start > deadline) {
-            await displayErrorMessage("Error: Start time must be before deadline!");
+        if (!discordSet) {
+            await displayErrorMessage("Error: Must set Discord ID to associate with purchases!")
+            await promptForDiscord();
         }
         else {
-            await market.modifyWLVendingItem(tokenAddress, currentlySelected, [title, image, siteFormatted, category + " " + description, amount, purchased, start, deadline, price]).then( async(tx_) => {
+            await market.purchaseWLVendingItem(tokenAddress, id).then( async(tx_) => {
                 await waitForTransaction(tx_);
             });
         }
     }
     catch (error) {
-        if ((error.message).includes("You are not Authorized for this ERC20 Contract!")) {
-            await displayErrorMessage(`You are not authorized to add listings for $SOULS!`);
+        if ((error.message).includes("Already purchased")) {
+            await displayErrorMessage(`Error: You already purchased a slot!`);
+        }
+        else if ((error.message).includes("Not started yet")) {
+            await displayErrorMessage(`Error: Listing not started yet!`);
+        }
+        else if ((error.message).includes("This WLVendingItem does not exist!")) {
+            await displayErrorMessage(`Error: Item does not exist!`);
+        }
+        else if ((error.message).includes("No more WL remaining")) {
+            await displayErrorMessage(`Error: No spots left!`);
+        }
+        else if ((error.message).includes("Passed deadline")) {
+            await displayErrorMessage(`Error: Listing expired!`);
+        }
+        else if ((error.message).includes("Not enough tokens")) {
+            await displayErrorMessage(`Error: Not enough $SOULS!`);
+        }
+        else if ((error.message).includes("transfer amount exceeds allowance")) {
+            await displayErrorMessage(`Error: Market not approved to spend $SOULS!`);
         }
         else if ((error.message).includes("User denied transaction signature")) {
             console.log("Transaction rejected.");
         }
         else {
             await displayErrorMessage("An error occurred. See console and window alert for details...")
-            window.alert(JSON.stringify(error));
+            window.alert(error);
             console.log(error);
         }
     }
 }
 
-// General functions
+const splitArrayToChunks = (array_, chunkSize_) => {
+    let _arrays = Array(Math.ceil(array_.length / chunkSize_))
+        .fill()
+        .map((_, index) => index * chunkSize_)
+        .map((begin) => array_.slice(begin, begin + chunkSize_));
 
-provider.on("network", async(newNetwork, oldNetwork) => {
-    if (oldNetwork) {
-        location.reload();
+    return _arrays;
+};
+
+var loadedCollections = false;
+var liveListings = [];
+var pendingListings = [];
+var liveTimerPending = [];
+var pendingTimerPending = [];
+
+setInterval(async()=>{
+    if (loadedCollections) {
+        for (let i = 0; i < liveListings.length; i++) {
+            if (liveTimerPending[i]) {
+                let id = liveListings[i];
+                let now = Date.now() / 1000;
+                let endTime = Number((await market.contractToWLVendingItems(tokenAddress, id)).endTime);
+                let distance = endTime - now;
+        
+                var hours = Math.floor(distance / (60 * 60));
+                var minutes = Math.floor((distance % (60 * 60)) / (60));
+                var seconds = Math.floor((distance % (60)));
+
+                if (hours < 10) {
+                    hours = `0${hours}`;
+                }
+                if (minutes < 10) {
+                    minutes = `0${minutes}`;
+                }
+                if (seconds < 10) {
+                    seconds = `0${seconds}`;
+                }
+                              
+                if (distance <= 0) {
+                    let blockTime = (await provider.getBlock((await provider.getBlockNumber()))).timestamp;
+                    if (blockTime > endTime) {
+                        liveTimerPending[i] = false;
+                        $(`#timer-${id}`).html("EXPIRED");
+                        $(`#timer-${id}`).removeClass("pending");
+                    }
+                    else {
+                        $(`#timer-${id}`).html(`ENDS NEXT BLOCK<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
+                    }
+                }
+                else {
+                    $(`#timer-${id}`).html(`ENDS IN ${hours}:${minutes}:${seconds}`);
+                    $(`#timer-${id}`).addClass("pending");
+                }
+            }
+        }
     }
-});
+}, 1000)
 
+setInterval(async()=>{
+    if (loadedCollections) {
+        for (let i = 0; i < pendingListings.length; i++) {
+            if (pendingTimerPending[i]) {
+                let id = pendingListings[i];
+                let now = Date.now() / 1000;
+                let startTime = Number((await market.contractToWLVendingItems(tokenAddress, id)).startTime);
+                let distance = startTime - now;
+        
+                var hours = Math.floor(distance / (60 * 60));
+                var minutes = Math.floor((distance % (60 * 60)) / (60));
+                var seconds = Math.floor((distance % (60)));
 
-// Processing tx returns
+                if (hours < 10) {
+                    hours = `0${hours}`;
+                }
+                if (minutes < 10) {
+                    minutes = `0${minutes}`;
+                }
+                if (seconds < 10) {
+                    seconds = `0${seconds}`;
+                }
+                              
+                if (distance <= 0) {
+                    let blockTime = (await provider.getBlock((await provider.getBlockNumber()))).timestamp;
+                    if (blockTime > startTime) {
+                        liveTimerPending.push(true);
+                        liveListings.push(id);
+                        $(`#timer-${id}`).removeClass("pending");
+                    }
+                    else {
+                        $(`#timer-${id}`).html(`LIVE NEXT BLOCK<span class="one">.</span><span class="two">.</span><span class="three">.</span>`);
+                    }
+                }
+                else {
+                    $(`#timer-${id}`).html(`LIVE IN ${hours}:${minutes}:${seconds}`);
+                    $(`#timer-${id}`).addClass("pending");
+                }
+            }
+        }
+    }
+}, 1000)
+
+const loadCollections = async() => {
+    const userAddress = await getAddress();
+    const numCollections = Number( await market.getWLVendingItemsLength(tokenAddress) );
+    let allItems;
+    if (numCollections > 0) {
+        allItems = await market.getWLVendingObjectsPaginated( tokenAddress, 0, numCollections - 1);
+    }
+    else {
+        allItems = [];
+    }
+    let allItemIds = Array.from(Array(numCollections).keys());
+    const chunks = splitArrayToChunks(allItemIds, 5);
+    let liveJSX = "";
+    let pastJSX = "";
+    let numLive = 0;
+    let numPast = 0;
+    let idToLiveJSX = new Map();
+    let idToPastJSX = new Map();
+    for (const chunk of chunks) {
+        await Promise.all( chunk.map( async(id) => {
+            // WL data from contract
+            let WLinfo = allItems[id];
+            let collectionPrice = Number(formatEther(WLinfo.price));
+            let purchased = await market.contractToWLPurchased(tokenAddress, id, userAddress);
+
+            // Data from JSON file
+            let maxSlots = WLinfo.amountAvailable;
+            let minted = WLinfo.amountPurchased;
+            let started = (Date.now()/1000) > WLinfo.startTime;
+            let valid =  WLinfo.endTime > (Date.now()/1000);
+            let imageUri = (WLinfo.imageUri).includes("https://") ? WLinfo.imageUri : `https://${WLinfo.imageUri}`;
+            let projectUri = (WLinfo.projectUri).includes("https://") ? WLinfo.projectUri : `https://${WLinfo.projectUri}`;
+
+            if (started && valid) {
+                liveListings.push(id);
+                liveTimerPending.push(true);
+                dateString = `Ends ${(new Date(WLinfo.endTime*1000)).toLocaleDateString()} ${(new Date(WLinfo.endTime*1000)).toLocaleTimeString([], {hour: "2-digit", minute:"2-digit"})}`;
+            }
+            else if (!started && valid) {
+                pendingListings.push(id);
+                pendingTimerPending.push(true);
+                dateString = `Starts ${(new Date(WLinfo.startTime*1000)).toLocaleDateString()} ${(new Date(WLinfo.startTime*1000)).toLocaleTimeString([], {hour: "2-digit", minute:"2-digit"})}`;
+            }
+
+            if (minted != maxSlots && valid) {
+                numLive += 1;
+                let button;
+                if (purchased) {
+                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED</button>`;
+                }
+                else {
+                    button = `<button class="mint-prompt-button button" id="${id}-mint-button" onclick="purchase('${tokenAddress}', ${id})">PURCHASE</button>`;
+                }
+                let fakeJSX = `<div class="partner-collection" id="project-${id}">
+                                <a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;"><img class="website" src="./images/website-black.png"></a>
+                                <h4 class="end-time" id="timer-${id}"><span class="one">.</span><span class="two">.</span><span class="three">.</span></h4>
+                                <img class="collection-img" src="${imageUri}">
+                                <div class="collection-info">
+                                    <h3>${(WLinfo.title).toUpperCase()}</h3>
+                                    <h4>${collectionPrice} <img src="${tokenImgURL}" class="token-icon">
+                                    <br>
+                                    <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased
+                                    </h4>
+                                    <div class="inside-text collection-description">
+                                    ${(WLinfo.description).replaceAll("\n", "<br>")}
+                                    </div>
+                                </div>
+                                ${button}
+                                </div>`
+
+                idToLiveJSX.set(id, fakeJSX);
+            }
+            else {
+                numPast +=1;
+                let button;
+                if (purchased) {
+                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">PURCHASED!</button>`;
+                }
+                else if (!valid) {
+                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">EXPIRED</button>`;
+                }
+                else if (minted == maxSlots) {
+                    button = `<button disabled class="mint-prompt-button button purchased" id="${id}-mint-button">SOLD OUT</button>`;
+                }
+                let fakeJSX = `<div class="partner-collection" id="project-${id}">
+                                <a class="clickable link" href="${projectUri}" target="_blank" style="text-decoration: none;"><img class="website" src="./images/website-black.png"></a>
+                                <img class="collection-img" src="${imageUri}">
+                                <div class="collection-info">
+                                    <h3>${(WLinfo.title).toUpperCase()}</h3>
+                                    <h4>${collectionPrice} <img src="${tokenImgURL}" class="token-icon"> <br> <span id="${id}-supply">${minted}</span>/<span id="${id}-max-supply">${maxSlots}</span> Purchased</h4>
+                                    <div class="inside-text collection-description">
+                                    ${(WLinfo.description).replaceAll("\n", "<br>")}
+                                    </div>
+                                </div>
+                                ${button}
+                                </div>`
+
+                idToPastJSX.set(id, fakeJSX);
+            }
+        }));
+    }
+
+    let liveIds = Array.from(idToLiveJSX.keys()).map(Number).sort(function(a, b){return b-a});
+    let pastIds = Array.from(idToPastJSX.keys()).map(Number).sort(function(a, b){return b-a});
+    for (const liveId of liveIds) {
+        liveJSX += idToLiveJSX.get(liveId);
+    }
+    for (const pastId of pastIds) {
+        pastJSX += idToPastJSX.get(pastId);
+    }
+
+    $("#live-collections").empty();
+    $("#past-collections").empty();
+    $("#live-collections").append(liveJSX);
+    $("#past-collections").append(pastJSX);
+    $("#num-live").html(`(${numLive})`);
+    $("#num-past").html(`(${numPast})`);
+
+    if (numLive > 3 && $("#live-button").hasClass("active")) {
+        $("#scroll-indicator").removeClass("hidden");
+    }
+    else if (numPast > 3 && $("#past-button").hasClass("active")) {
+        $("#scroll-indicator").removeClass("hidden");
+    }
+
+    if (numLive == 0) {
+        $("#live-collections").append("<div id='no-live-msg'><h2>No active listings.<br>Join our Discord to see what's next!</h2><br><a href='https://discord.com/triplesixjewels' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
+    }
+
+    loadedCollections = true;
+}
+
+const updateSupplies = async() => {
+    let userAddress = await getAddress();
+    let numListings = Number(await market.getWLVendingItemsLength(tokenAddress));
+    for (let id = 0; id < numListings; id++) {
+        let buyers = await market.getWLPurchasersOf(tokenAddress, id);
+        let WLinfo = await market.contractToWLVendingItems(tokenAddress, id);
+        let maxSlots = WLinfo.amountAvailable;
+        let minted = WLinfo.amountPurchased;
+        let purchased = buyers.includes(userAddress);
+        if (purchased) {
+            $(`#${id}-mint-button`).text("PURCHASED");
+            $(`#${id}-mint-button`).addClass("purchased");
+            $(`#${id}-mint-button`).prop("disabled", true);
+        }
+        else if (minted == maxSlots ) {
+            $(`#${id}-mint-button`).text("SOLD OUT");
+            $(`#${id}-mint-button`).addClass("purchased");
+            $(`#${id}-mint-button`).prop("disabled", true);
+        }
+        $(`#${id}-supply`).text(minted);
+    }
+}
+
+// Processing txs
+
+// After Tx Hook
 const waitForTransaction = async(tx_) => {
     startLoading(tx_);
     provider.once(tx_.hash, async (transaction_) => {
@@ -292,7 +451,7 @@ function cachePendingTransactions() {
 function startLoading(tx) {
     let txHash = tx.hash;
     const etherscanLink = `${etherscanBase}${txHash}`;
-    const loadingDiv = `<a href="${etherscanLink}" class="etherscan-link" id="etherscan-link-${txHash}" target="_blank" rel="noopener noreferrer"><div class="loading-div" id="loading-div-${txHash}">PROCESSING<span class="one">.</span><span class="two">.</span><span class="three">.</span>​<br>CLICK FOR ETHERSCAN</div></a><br>`;
+    const loadingDiv = `<a href="${etherscanLink}" class="etherscan-link" id="etherscan-link-${txHash}" target="_blank" rel="noopener noreferrer"><div class="loading-div" id="loading-div-${txHash}">PROCESSING<span class="one">.</span><span class="two">.</span><span class="three">.</span><br>CLICK FOR ETHERSCAN</div></a><br>`;
     $("#pending-transactions").append(loadingDiv);
     pendingTransactions.add(tx);
 }
@@ -312,30 +471,80 @@ async function endLoading(tx, txStatus) {
     await sleep(7000);
     $(`#etherscan-link-${txHash}`).remove();
     pendingTransactions.delete(tx);
+    if (pendingTransactions.size == 0) {
+        await updateSupplies();
+    }
 }
 
-setInterval(async()=>{
-    await updateInfo();
-}, 5000)
-
 const updateInfo = async () => {
+    await checkTokenApproval();
     let userAddress = await getAddress();
     $("#account").text(`${userAddress.substr(0,7)}..`);
+    $("#account").addClass(`connected`);
     $("#mobile-account").text(`${userAddress.substr(0,7)}...`);
 };
 
-ethereum.on("accountsChanged", async(accounts_)=>{
+setInterval( async() => {
+    await updateTokenBalance();
+    await updateInfo();
+    if (loadedCollections) {
+        await updateSupplies();
+    }
+}, 5000)
+
+ethereum.on("accountsChanged", async (accounts_) => {
+    await updateInfo();
     location.reload();
 });
 
-window.onload = async()=>{
-    await updateInfo();
-    await loadListings();
-    let userAddress = await getAddress();
-    if ((await market.isAuthorized(tokenAddress, userAddress))) {
-        $("#workshop").removeClass("hidden");
-        $("#workshop-mobile").removeClass("hidden");
+provider.on("network", async(newNetwork, oldNetwork) => {
+    if (oldNetwork) {
+        location.reload();
     }
+});
+
+window.onload = async() => {
+    if (!(await getAddress())) {
+        // const connectPrompt = ` <div id="ex1" class="partner-collection example">
+        //                             <div class="cover">
+        //                                 <button class="button connect" onclick="connect()">CONNECT</button>
+        //                             </div>
+        //                             <img class="collection-img" src="./images/question.jpeg">
+        //                             <div class="collection-info">
+        //                                 <h3>???</h3>
+        //                                 <h4>???/??? Purchased
+        //                                 <br>
+        //                                 ??? <img src="${tokenImgURL}" class="token-icon">
+        //                                 <br>
+        //                                 Ends MM/DD/YYYY
+        //                                 </h4>
+        //                                <div class="inside-text collection-description">
+        //                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at hendrerit augue, ultrices aliquam ante. Duis sodales eros consequat magna efficitur, non ullamcorper mauris tristique.
+        //                                 </div>
+        //                                 <button class="button">PURCHASE</button>
+        //                             </div>
+        //                         </div>`
+        // $("#live-collections").empty();
+        // $("#past-collections").empty();
+        // $("#live-collections").append(connectPrompt);
+        // $("#past-collections").append(connectPrompt);
+        console.log("using infura")
+        await loadInfuraListings();
+    }
+    else {
+        console.log("using wallet")
+        await updateInfo();
+        let userAddress = await getAddress();
+        if ((await market.isAuthorized(tokenAddress, userAddress))) {
+            $("#workshop").removeClass("hidden");
+            $("#workshop-mobile").removeClass("hidden");
+        }
+        await loadCollections();
+        await updateTokenBalance();
+    }
+    // await updateInfo();
+    // await loadCollections();
+    // await updateTokenBalance();
 };
 
 window.onunload = async()=>{

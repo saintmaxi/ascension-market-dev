@@ -282,14 +282,12 @@ h5 {
     text-decoration: none;
     height: 5%;
     background-color: white;
-    border: solid white .3em;
     color: black;
     font-size: 1.2vw;
     line-height: 1.5vw;
     padding: 20px;
     text-align: center;
-	border-radius: 15px;
-	border: .5vw solid black;
+	border: 1px solid white;
 	font-family: "Syke";
 }
 
