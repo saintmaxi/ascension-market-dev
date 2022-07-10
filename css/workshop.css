@@ -20,6 +20,10 @@ textarea {
     padding-bottom: 15px !important;
 }
 
+#listing-select {
+    font-size: 1.5vw !important;
+}
+
 .end-time, .start-time {
     font-size: .94vw;
     line-height: .94vw;
@@ -38,6 +42,10 @@ textarea {
 
 @media screen and (max-width: 991px) {
 
+    #listing-select {
+        font-size: 3vh !important;
+    }
+
     #create-input, #modify-input {
         width: 90%;
     }
@@ -48,7 +56,7 @@ textarea {
     }
 
     #modify-input input, #modify-input textarea, #create-input input, #create-input textarea {
-        width: 85%;
+        width: 95%;
         font-size: 2vh;
         line-height: 2vh;
         border: solid black 2px;
