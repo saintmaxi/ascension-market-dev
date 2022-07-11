@@ -619,7 +619,7 @@ h5 {
 	}
 
 	select {
-		border-width: 3px;
+		border-width: 1px;
 		font-size: 3vh !important;
 		width: 90%;
 	}
