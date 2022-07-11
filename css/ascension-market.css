@@ -9,7 +9,7 @@ select {
 	border-style: solid;
 	background-color: white;
 	color: black !important;
-	border-width: 1px solid black;
+	border: 1px solid black;
 	border: none;
 	min-width: 35%;
 }
