@@ -456,7 +456,7 @@ h5 {
 	}
 
 	.box {
-		border-width: 5px;
+		border-width: 1px;
 	}
 
 	.section {
@@ -554,12 +554,12 @@ h5 {
       .loading-div {
         font-size: 4vw !important;
         line-height: 4.6vw !important;
-		border-width: 5px;
+		border-width: 1px;
       }
 
 	  #loading-popup {
         width: 75vw;
-		border-width: 5px;
+		border-width: 1px;
 		bottom: 3vh;
     }
 
