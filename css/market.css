@@ -244,6 +244,7 @@ button.active {
 .collection-img {
 	border-style: solid;
 	border-color: white;
+    object-fit: cover;
 	border-width: .1px;
     background-color: black;
     width: 30%;
