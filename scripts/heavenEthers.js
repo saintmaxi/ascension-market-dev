@@ -72,7 +72,7 @@ const loadingDiv = `<div id="ex1" class="partner-collection example">
                             <br>
                             <span class="end-time">Ends MM/DD/YYYY HH:MM AM</span>
                             </h4>
-                            <div class="inside-text collection-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare neque ut aliquam lobortis. Morbi non tellus dui. Proin pellentesque nisl non augue volutpat, eu convallis nibh pretium.
+                            <div class="inside-text collection-description">Lorem ipsum dolor sit amet.
                             </div>
                             <button class="button">PURCHASE</button>
                         </div>
@@ -526,7 +526,7 @@ const loadAlchemyListings = async() => {
     }
 
     if (jsonData.numPast == 0) {
-        $("#live-collections").append("<div id='no-live-msg'><h2>No past listings.<br>Join our discord to see what's next!</h2><br><a href='https://discord.com/triplesixjewels' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
+        $("#past-collections").append("<div id='no-live-msg'><h2>No past listings.<br>Join our discord to see what's next!</h2><br><a href='https://discord.com/triplesixjewels' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
     }
 }
 
