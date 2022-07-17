@@ -383,10 +383,10 @@ const loadCollections = async() => {
     $("#num-live").html(`(${numLive})`);
     $("#num-past").html(`(${numPast})`);
 
-    if (numLive > 3 && $("#live-button").hasClass("active")) {
+    if (numLive > 4 && $("#live-button").hasClass("active")) {
         $("#scroll-indicator").removeClass("hidden");
     }
-    else if (numPast > 3 && $("#past-button").hasClass("active")) {
+    else if (numPast > 4 && $("#past-button").hasClass("active")) {
         $("#scroll-indicator").removeClass("hidden");
     }
 
@@ -506,33 +506,34 @@ provider.on("network", async(newNetwork, oldNetwork) => {
     }
 });
 
+const loadAlchemyListings = async() => {
+    const jsonData = await fetch(`https://6srrjgp94b.execute-api.us-east-1.amazonaws.com/prod/listings?category=heaven`).then(res => res.json());
+    $("#live-collections").empty();
+    $("#past-collections").empty();
+    $("#live-collections").append(jsonData.liveJSX);
+    $("#past-collections").append(jsonData.pastJSX);
+    $("#num-live").html(`(${jsonData.numLive})`);
+    $("#num-past").html(`(${jsonData.numPast})`);
+    if (jsonData.numLive > 4 && $("#live-button").hasClass("active")) {
+        $("#scroll-indicator").removeClass("hidden");
+    }
+    else if (jsonData.numPast > 4 && $("#past-button").hasClass("active")) {
+        $("#scroll-indicator").removeClass("hidden");
+    }
+
+    if (jsonData.numLive == 0) {
+        $("#live-collections").append("<div id='no-live-msg'><h2>No active listings.<br>Join our discord to see what's next!</h2><br><a href='https://discord.com/triplesixjewels' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
+    }
+
+    if (jsonData.numPast == 0) {
+        $("#live-collections").append("<div id='no-live-msg'><h2>No past listings.<br>Join our discord to see what's next!</h2><br><a href='https://discord.com/triplesixjewels' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
+    }
+}
+
 window.onload = async() => {
     if (!(await getAddress())) {
-        // const connectPrompt = ` <div id="ex1" class="partner-collection example">
-        //                             <div class="cover">
-        //                                 <button class="button connect" onclick="connect()">CONNECT</button>
-        //                             </div>
-        //                             <img class="collection-img" src="./images/question.jpeg">
-        //                             <div class="collection-info">
-        //                                 <h3>???</h3>
-        //                                 <h4>???/??? Purchased
-        //                                 <br>
-        //                                 ??? <img src="${tokenImgURL}" class="token-icon">
-        //                                 <br>
-        //                                 Ends MM/DD/YYYY
-        //                                 </h4>
-        //                                <div class="inside-text collection-description">
-        //                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at hendrerit augue, ultrices aliquam ante. Duis sodales eros consequat magna efficitur, non ullamcorper mauris tristique.
-        //                                 </div>
-        //                                 <button class="button">PURCHASE</button>
-        //                             </div>
-        //                         </div>`
-        // $("#live-collections").empty();
-        // $("#past-collections").empty();
-        // $("#live-collections").append(connectPrompt);
-        // $("#past-collections").append(connectPrompt);
-        console.log("using infura")
-        await loadInfuraListings();
+        console.log("using alchemy")
+        await loadAlchemyListings();
     }
     else {
         console.log("using wallet")
@@ -545,9 +546,6 @@ window.onload = async() => {
         await loadCollections();
         await updateTokenBalance();
     }
-    // await updateInfo();
-    // await loadCollections();
-    // await updateTokenBalance();
 };
 
 window.onunload = async()=>{

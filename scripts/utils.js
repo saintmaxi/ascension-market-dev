@@ -82,29 +82,6 @@ function clearPendingTxs() {
     location.reload();
 };
 
- const loadInfuraListings = async() => {
-    const listings = await fetch(`API ENDPOINT HERE`).then(res => res.text());
-    const jsonData = listings ? JSON.parse(listings) : [];
-    $("#live-collections").empty();
-    $("#past-collections").empty();
-    $("#live-collections").append(jsonData.liveJSX);
-    $("#past-collections").append(jsonData.pastJSX);
-    $("#num-live").html(`(${jsonData.numLive})`);
-    $("#num-past").html(`(${jsonData.numPast})`);
-    if (jsonData.numLive > 3 && $("#live-button").hasClass("active")) {
-        $("#scroll-indicator").removeClass("hidden");
-    }
-    else if (jsonData.numPast > 3 && $("#past-button").hasClass("active")) {
-        $("#scroll-indicator").removeClass("hidden");
-    }
-
-    if (jsonData.numLive == 0) {
-        $("#live-collections").append("<div id='no-live-msg'><h2>No active listings.<br>Join our discord to see what's next!</h2><br><a href='https://discord.com/invite/anonymice' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
-    }
-}
-
-
-
  // ======= DISCORD UTILS ========
 
  // Mainnet
