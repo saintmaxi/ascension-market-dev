@@ -126,6 +126,9 @@ const addListing = async() => {
         else if ((error.message).includes("User denied transaction signature")) {
             console.log("Transaction rejected.");
         }
+        else if ((error.message).includes("User rejected the transaction")) {
+            console.log("Transaction rejected.");
+        }
         else {
             await displayErrorMessage("An error occurred. See console and window alert for details...")
             window.alert(JSON.stringify(error));
@@ -241,6 +244,9 @@ const modifyListing = async() => {
             await displayErrorMessage(`You are not authorized to add listings for $SOULS!`);
         }
         else if ((error.message).includes("User denied transaction signature")) {
+            console.log("Transaction rejected.");
+        }
+        else if ((error.message).includes("User rejected the transaction")) {
             console.log("Transaction rejected.");
         }
         else {
