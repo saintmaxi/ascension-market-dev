@@ -36,6 +36,30 @@ const tokenImgURL = "https://github.com/saintmaxi/ascension-market-dev/blob/mast
 
 /*********************************END CONFIG************************************/
 
+const loadAlchemyListings = async () => {
+    const jsonData = await fetch(`https://6srrjgp94b.execute-api.us-east-1.amazonaws.com/prod/listings?category=heaven`).then(res => res.json());
+    $("#live-collections").empty();
+    $("#past-collections").empty();
+    $("#live-collections").append(jsonData.liveJSX);
+    $("#past-collections").append(jsonData.pastJSX);
+    $("#num-live").html(`(${jsonData.numLive})`);
+    $("#num-past").html(`(${jsonData.numPast})`);
+    if (jsonData.numLive > 4 && $("#live-button").hasClass("active")) {
+        $("#scroll-indicator").removeClass("hidden");
+    }
+    else if (jsonData.numPast > 4 && $("#past-button").hasClass("active")) {
+        $("#scroll-indicator").removeClass("hidden");
+    }
+
+    if (jsonData.numLive == 0) {
+        $("#live-collections").append("<div id='no-live-msg'><h2>No active listings.<br>Join our discord to see what's next!</h2><br><a href='https://discord.com/triplesixjewels' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
+    }
+
+    if (jsonData.numPast == 0) {
+        $("#past-collections").append("<div id='no-live-msg'><h2>No past listings.<br>Join our discord to see what's next!</h2><br><a href='https://discord.com/triplesixjewels' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
+    }
+}
+
 if (window.ethereum == undefined) {
     displayErrorMessage('Use a web3 enabled browser to browse listings!');
     loadAlchemyListings();
@@ -508,30 +532,6 @@ provider.on("network", async (newNetwork, oldNetwork) => {
         location.reload();
     }
 });
-
-const loadAlchemyListings = async () => {
-    const jsonData = await fetch(`https://6srrjgp94b.execute-api.us-east-1.amazonaws.com/prod/listings?category=heaven`).then(res => res.json());
-    $("#live-collections").empty();
-    $("#past-collections").empty();
-    $("#live-collections").append(jsonData.liveJSX);
-    $("#past-collections").append(jsonData.pastJSX);
-    $("#num-live").html(`(${jsonData.numLive})`);
-    $("#num-past").html(`(${jsonData.numPast})`);
-    if (jsonData.numLive > 4 && $("#live-button").hasClass("active")) {
-        $("#scroll-indicator").removeClass("hidden");
-    }
-    else if (jsonData.numPast > 4 && $("#past-button").hasClass("active")) {
-        $("#scroll-indicator").removeClass("hidden");
-    }
-
-    if (jsonData.numLive == 0) {
-        $("#live-collections").append("<div id='no-live-msg'><h2>No active listings.<br>Join our discord to see what's next!</h2><br><a href='https://discord.com/triplesixjewels' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
-    }
-
-    if (jsonData.numPast == 0) {
-        $("#past-collections").append("<div id='no-live-msg'><h2>No past listings.<br>Join our discord to see what's next!</h2><br><a href='https://discord.com/triplesixjewels' target='_blank'><button class='button'>JOIN DISCORD</button></a></div>");
-    }
-}
 
 window.onload = async () => {
     if (!(await getAddress())) {
