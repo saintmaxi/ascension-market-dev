@@ -192,11 +192,13 @@
   right: 20px;
 }
 
-#about .link {
+#about .link,
+#error-popup .link {
   color: #bf0c00;
 }
 
-#about .link:hover {
+#about .link:hover,
+#error-popup .link:hover {
   color: #f03426;
 }
 

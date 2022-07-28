@@ -457,7 +457,8 @@ const checkIfOwnsTokens = async () => {
     let userAddress = await getAddress();
     let ownsToken = await ownershipController.hasOwnershipOfToken(tokenAddress, userAddress);
     if (!ownsToken) {
-        await displayErrorMessage("Your wallet does not contain a permitted collection! You must own an NFT from a permitted collection to purchase listings.", false);
+        await displayErrorMessage(`Your wallet does not contain an NFT from <a class="link" target="_blank"
+        href="https://opensea.io/collection/ascensionbyt6">ASCENSION</a>! You must own an NFT from this collection to purchase listings.`, false);
     }
 }
 
